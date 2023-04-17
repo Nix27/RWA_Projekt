@@ -1,0 +1,23 @@
+﻿using DAL.ApplicationDbContext;
+using DAL.IRepositories;
+using DAL.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DAL.Repositories
+{
+    public class TagRepository : Repository<Tag>, ITagRepository
+    {
+        public TagRepository(AppDbContext dbContext) : base(dbContext)
+        {
+        }
+
+        public void Update(Tag tag)
+        {
+            _dbContext.Tags.Update(tag);
+        }
+    }
+}
