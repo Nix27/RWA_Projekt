@@ -14,8 +14,8 @@ namespace DAL.IRepositories
         IEnumerable<VideoDto> GetAll(Expression<Func<Video, bool>>? filter = null, string? includeProperties = null);
         VideoDto GetFirstOrDefault(Expression<Func<Video, bool>> filter, string? includeProperties = null);
         VideoDto Add(VideoDto video);
-        void Update(int id, VideoDto video);
-        void Delete(Video video);
-        void DeleteRange(IEnumerable<Video> videos);
+        VideoDto Update(int id, VideoDto video);
+        VideoDto Delete(Video video);
+        IEnumerable<Video> DeleteRange(IEnumerable<Video> videos);
     }
 }

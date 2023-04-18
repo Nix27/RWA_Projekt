@@ -33,14 +33,18 @@ namespace DAL.Repositories
             return VideoMapping.MapToDto(dbVideo);
         }
 
-        public void Delete(Video video)
+        public VideoDto Delete(Video video)
         {
             _dbContext.Remove(video);
+
+            return VideoMapping.MapToDto(video);
         }
 
-        public void DeleteRange(IEnumerable<Video> videos)
+        public IEnumerable<Video> DeleteRange(IEnumerable<Video> videos)
         {
             _dbContext.RemoveRange(videos);
+
+            return videos;
         }
 
         public IEnumerable<VideoDto> GetAll(Expression<Func<Video, bool>>? filter = null, string? includeProperties = null)
@@ -77,7 +81,7 @@ namespace DAL.Repositories
             return VideoMapping.MapToDto(video);
         }
 
-        public void Update(int id, VideoDto video)
+        public VideoDto Update(int id, VideoDto video)
         {
             var dbVideo = _dbContext.Videos.FirstOrDefault(v => v.Id == id);
 
@@ -108,6 +112,8 @@ namespace DAL.Repositories
                     Tag = dbTag
                 });
             }
+
+            return VideoMapping.MapToDto(dbVideo);
         }
     }
 }
