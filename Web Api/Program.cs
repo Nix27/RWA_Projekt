@@ -1,6 +1,7 @@
 using DAL.ApplicationDbContext;
 using DAL.IRepositories;
 using DAL.Repositories;
+using DAL.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +19,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     );
 });
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IGenreService, GenreService>();
+builder.Services.AddScoped<ITagService, TagService>();
 
 var app = builder.Build();
 

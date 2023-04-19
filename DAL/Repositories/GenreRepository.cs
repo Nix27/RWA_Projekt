@@ -14,10 +14,5 @@ namespace DAL.Repositories
         public GenreRepository(AppDbContext dbContext) : base(dbContext)
         {
         }
-
-        public void Update(Genre genre)
-        {
-            _dbContext.Genres.Update(genre);
-        }
     }
 }

@@ -9,6 +9,5 @@ namespace DAL.IRepositories
 {
     public interface IGenreRepository : IRepository<Genre>
     {
-        void Update(Genre genre);
     }
 }

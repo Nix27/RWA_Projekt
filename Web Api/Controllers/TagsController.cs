@@ -1,9 +1,7 @@
 ﻿using DAL.DTO;
 using DAL.IRepositories;
-using DAL.Models;
+using DAL.Services;
 using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Web_Api.Controllers
 {
@@ -11,27 +9,27 @@ namespace Web_Api.Controllers
     [ApiController]
     public class TagsController : ControllerBase
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly ITagService _tagService;
 
-        public TagsController(IUnitOfWork unitOfWork)
+        public TagsController(ITagService tagService)
         {
-            _unitOfWork = unitOfWork;
+            _tagService = tagService;
         }
 
         [HttpGet]
         public IActionResult GetAllTags()
         {
-            return Ok(_unitOfWork.Tag.GetAll());
+            return Ok(_tagService.GetAll());
         }
 
         [HttpGet("{id}")]
         public IActionResult GetTag(int id)
         {
-            var requestedTag = _unitOfWork.Tag.GetFirstOrDefault(t => t.Id == id);
+            var foundTag = _tagService.Get(id);
 
-            if(requestedTag == null) return NotFound();
+            if (foundTag == null) return NotFound();
 
-            return Ok(requestedTag);
+            return Ok(foundTag);
         }
 
         [HttpPost]
@@ -39,39 +37,29 @@ namespace Web_Api.Controllers
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            var newtag = new Tag
-            {
-                Name = tag.Name
-            };
-
-            _unitOfWork.Tag.Add(newtag);
-            _unitOfWork.Save();
-
-            return Ok(tag);
+            return Ok(_tagService.Create(tag));
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateTag(int id, [FromBody] Tag tag)
+        public IActionResult UpdateTag(int id, [FromBody] TagDto tag)
         {
-            if(!ModelState.IsValid) return BadRequest(ModelState);
+            if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            _unitOfWork.Tag.Update(tag);
-            _unitOfWork.Save();
+            var updatedTag = _tagService.Update(id, tag);
 
-            return Ok(tag);
+            if (updatedTag == null) return NotFound();
+
+            return Ok(updatedTag);
         }
         
         [HttpDelete("{id}")]
         public IActionResult DeleteTag(int id)
         {
-            var tagForDelete = _unitOfWork.Tag.GetFirstOrDefault(t => t.Id == id);
+            var deletedTag = _tagService.Delete(id);
 
-            if (tagForDelete == null) return NotFound();
+            if (deletedTag == null) return NotFound();
 
-            _unitOfWork.Tag.Delete(tagForDelete);
-            _unitOfWork.Save();
-
-            return Ok(tagForDelete);
+            return Ok(deletedTag);
         }
     }
 }

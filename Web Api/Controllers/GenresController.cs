@@ -1,6 +1,6 @@
 ﻿using DAL.DTO;
 using DAL.IRepositories;
-using DAL.Models;
+using DAL.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Web_Api.Controllers
@@ -9,63 +9,57 @@ namespace Web_Api.Controllers
     [ApiController]
     public class GenresController : ControllerBase
     {
-        private readonly IUnitOfWork _unitOfWork;
-
-        public GenresController(IUnitOfWork unitOfWork)
+        private readonly IGenreService _genreService;
+        public GenresController(IGenreService genreService)
         {
-            _unitOfWork = unitOfWork;
+            _genreService = genreService;
         }
 
         [HttpGet]
         public IActionResult GetAllGenres()
         {
-            return Ok(_unitOfWork.Genre.GetAll());
+            return Ok(_genreService.GetAll());
         }
 
         [HttpGet("{id}")]
         public IActionResult GetGenre(int id)
         {
-            var requestedGenre = _unitOfWork.Genre.GetFirstOrDefault(g => g.Id == id);
+            var foundGenre = _genreService.Get(id); 
 
-            if (requestedGenre == null) return NotFound();
+            if (foundGenre == null) return NotFound();
 
-            return Ok(requestedGenre);
+            return Ok(foundGenre);
         }
 
         [HttpPost]
-        public IActionResult CreateGenre([FromBody] Genre genre)
+        public IActionResult CreateGenre([FromBody] GenreDto genre)
         {
             if(!ModelState.IsValid) return BadRequest(ModelState);
 
-            _unitOfWork.Genre.Add(genre);
-            _unitOfWork.Save();
-
-            return Ok(genre);
+            return Ok(_genreService.Create(genre));
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateGenre(int id, [FromBody] Genre genre)
+        public IActionResult UpdateGenre(int id, [FromBody] GenreDto genre)
         {
             if(!ModelState.IsValid) return BadRequest(ModelState);
 
-            _unitOfWork.Genre.Update(genre);
-            _unitOfWork.Save();
+            var updatedGenre = _genreService.Update(id, genre);
 
-            return Ok(genre);
+            if (updatedGenre == null) return NotFound();
+
+            return Ok(updatedGenre);
         }
 
         [HttpDelete("{id}")]
         public IActionResult DeleteGenre(int id)
         {
-            var genreForDelete = _unitOfWork.Genre.GetFirstOrDefault(g => g.Id == id);
+            var deletedGenre = _genreService.Delete(id);
 
-            if(genreForDelete == null)
+            if(deletedGenre == null)
                 return NotFound();
 
-            _unitOfWork.Genre.Delete(genreForDelete);
-            _unitOfWork.Save();
-
-            return Ok(genreForDelete);
+            return Ok(deletedGenre);
         }
     }
 }

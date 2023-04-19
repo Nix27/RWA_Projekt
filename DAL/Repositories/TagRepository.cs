@@ -14,10 +14,5 @@ namespace DAL.Repositories
         public TagRepository(AppDbContext dbContext) : base(dbContext)
         {
         }
-
-        public void Update(Tag tag)
-        {
-            _dbContext.Tags.Update(tag);
-        }
     }
 }

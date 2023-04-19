@@ -9,6 +9,5 @@ namespace DAL.IRepositories
 {
     public interface ITagRepository : IRepository<Tag>
     {
-        void Update(Tag tag);
     }
 }
