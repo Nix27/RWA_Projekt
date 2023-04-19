@@ -56,8 +56,7 @@ namespace Web_Api.Controllers
         {
             var deletedGenre = _genreService.Delete(id);
 
-            if(deletedGenre == null)
-                return NotFound();
+            if(deletedGenre == null) return NotFound();
 
             return Ok(deletedGenre);
         }

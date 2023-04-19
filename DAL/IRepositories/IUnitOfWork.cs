@@ -11,6 +11,7 @@ namespace DAL.IRepositories
         IVideoRepository Video { get; }
         IGenreRepository Genre { get; }
         ITagRepository Tag { get; }
+        IVideoTagsRepository VideoTag { get; }
 
         void Save();
     }
