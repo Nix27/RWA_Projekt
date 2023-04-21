@@ -94,5 +94,31 @@ namespace DAL.Services
 
             return VideoMapping.MapToDto(videoForUpdate);
         }
+
+        public ICollection<VideoDto> Search(int size, int page, string? filterNames, string? orderBy, string? direction)
+        {
+            var videos = _unitOfWork.Video.GetAll(includeProperties: "VideoTags.Tag");
+
+            //filtering
+            if(filterNames != null)
+                videos = videos.Where(v => v.Name.Contains(filterNames));
+
+            //ordering
+            if (String.Compare(orderBy, "name", true) == 0)
+                videos = videos.OrderBy(v => v.Name);
+            else if (String.Compare(orderBy, "totalSeconds", true) == 0)
+                videos = videos.OrderBy(v => v.TotalSeconds);
+            else
+                videos = videos.OrderBy(v => v.Id);
+
+            //direction
+            if (String.Compare(direction, "desc", true) == 0)
+                videos = videos.Reverse();
+
+            //paging
+            videos = videos.Skip(size * page).Take(size);
+
+            return VideoMapping.MapToDto(videos).ToList();
+        }
     }
 }

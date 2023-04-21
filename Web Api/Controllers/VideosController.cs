@@ -31,6 +31,12 @@ namespace Web_Api.Controllers
             return Ok(foundVideo);
         }
 
+        [HttpGet("[action]")]
+        public IActionResult SearchVideos(int size, int page, string? filterNames, string? orderBy, string? direction)
+        {
+            return Ok(_videoService.Search(size, page, filterNames, orderBy, direction));
+        }
+
         [HttpPost]
         public IActionResult CreateVideo([FromBody] VideoDto video)
         {

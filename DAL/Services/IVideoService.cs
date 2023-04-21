@@ -14,5 +14,6 @@ namespace DAL.Services
         VideoDto Create(VideoDto video);
         VideoDto? Update(int id, VideoDto video);
         VideoDto? Delete(int id);
+        ICollection<VideoDto> Search(int size, int page, string? filterNames, string? orderBy, string? direction);
     }
 }
