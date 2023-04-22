@@ -15,5 +15,7 @@ namespace DAL.Services
         UserDto Create(UserRegisterRequest user);
         UserDto? Update(int id, UserDto user);
         UserDto? Delete(int id);
+        string GetToken(LoginRequest request);
+        void ChangePass(ChangePasswordRequest request);
     }
 }

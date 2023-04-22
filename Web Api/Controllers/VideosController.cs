@@ -1,9 +1,11 @@
 ﻿using DAL.DTO;
 using DAL.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Web_Api.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class VideosController : ControllerBase
@@ -15,12 +17,14 @@ namespace Web_Api.Controllers
             _videoService = videoService;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult GetAllVideos()
         {
             return Ok(_videoService.GetAll());
         }
 
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public IActionResult GetVideo(int id)
         {
@@ -31,6 +35,7 @@ namespace Web_Api.Controllers
             return Ok(foundVideo);
         }
 
+        [AllowAnonymous]
         [HttpGet("[action]")]
         public IActionResult SearchVideos(int size, int page, string? filterNames, string? orderBy, string? direction)
         {
@@ -58,7 +63,7 @@ namespace Web_Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public IActionResult DeleteVideo(int id)
         {
             var deletedVideo = _videoService.Delete(id);
 

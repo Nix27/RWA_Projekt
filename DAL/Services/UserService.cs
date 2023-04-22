@@ -96,23 +96,23 @@ namespace DAL.Services
             return _unitOfWork.UserRepo.GetFirstOrDefault(u => u.Email == email).Role;
         }
 
-        public string GetToken(string email, string password)
+        public string GetToken(LoginRequest request)
         {
-            var isAuthenticated = Authenticate(email, password);
+            var isAuthenticated = Authenticate(request.Email, request.Password);
 
             if (!isAuthenticated)
                 throw new Exception("Authentication failed");
 
             var jwtKey = _configuration["Jwt:Key"];
             var jwtKeyBytes = Encoding.UTF8.GetBytes(jwtKey);
-            var role = GetRole(email);
+            var role = GetRole(request.Email);
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new System.Security.Claims.Claim[]
                 {
-                    new System.Security.Claims.Claim(ClaimTypes.Email, email),
-                    new System.Security.Claims.Claim(JwtRegisteredClaimNames.Sub, email),
+                    new System.Security.Claims.Claim(ClaimTypes.Name, request.Email),
+                    new System.Security.Claims.Claim(JwtRegisteredClaimNames.Sub, request.Email),
                     new System.Security.Claims.Claim(ClaimTypes.Role, role)
                 }),
                 Issuer = _configuration["JWT:Issuer"],
@@ -129,7 +129,7 @@ namespace DAL.Services
             return tokenHandler.WriteToken(token);
         }
 
-        public void ChangePassword(ChangePasswordRequest request)
+        public void ChangePass(ChangePasswordRequest request)
         {
             var isAuthenticated = Authenticate(request.Email, request.OldPassword);
 

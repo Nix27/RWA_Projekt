@@ -1,12 +1,14 @@
 ﻿using DAL.DTO;
 using DAL.IRepositories;
 using DAL.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Web_Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class TagsController : ControllerBase
     {
         private readonly ITagService _tagService;

@@ -1,12 +1,14 @@
 ﻿using DAL.DTO;
 using DAL.Models;
 using DAL.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Web_Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -32,12 +34,27 @@ namespace Web_Api.Controllers
             return Ok(foundUser);
         }
 
-        [HttpPost]
+        [HttpPost("[action]")]
         public IActionResult RegisterUser([FromBody] UserRegisterRequest user)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
             return Ok(_userService.Create(user));
+        }
+
+        [HttpPost("[action]")]
+        public IActionResult LogIn([FromBody] LoginRequest request)
+        {
+            try
+            {
+               var jwtToken = _userService.GetToken(request);
+
+                return Ok(jwtToken);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut("{id}")]
@@ -60,6 +77,21 @@ namespace Web_Api.Controllers
             if (deletedUser == null) return NotFound();
 
             return Ok(deletedUser);
+        }
+
+        [HttpPost("[action]")]
+        public IActionResult ChangePassword([FromBody] ChangePasswordRequest request)
+        {
+            try
+            {
+                _userService.ChangePass(request);
+
+                return Ok("Password changed successfully");
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
