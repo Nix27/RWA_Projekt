@@ -2,7 +2,10 @@ using DAL.ApplicationDbContext;
 using DAL.IRepositories;
 using DAL.Repositories;
 using DAL.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +25,24 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IGenreService, GenreService>();
 builder.Services.AddScoped<ITagService, TagService>();
 builder.Services.AddScoped<IVideoService, VideoService>();
+builder.Services.AddScoped<IUserService, UserService>();
+
+builder.Services
+    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(o => {
+        var jwtKey = builder.Configuration["JWT:Key"];
+        var jwtKeyBytes = Encoding.UTF8.GetBytes(jwtKey);
+        o.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidIssuer = builder.Configuration["JWT:Issuer"],
+            ValidateAudience = true,
+            ValidAudience = builder.Configuration["JWT:Audience"],
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(jwtKeyBytes),
+            ValidateLifetime = true
+        };
+    });
 
 var app = builder.Build();
 

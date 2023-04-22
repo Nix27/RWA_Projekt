@@ -12,6 +12,7 @@ namespace DAL.IRepositories
         IGenreRepository Genre { get; }
         ITagRepository Tag { get; }
         IVideoTagsRepository VideoTag { get; }
+        IUserRepository UserRepo { get; }
 
         void Save();
     }

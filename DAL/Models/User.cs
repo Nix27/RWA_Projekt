@@ -30,6 +30,9 @@ namespace DAL.Models
         public bool IsConfirmed { get; set; }
         public string? SecurityToken { get; set; }
 
+        public string Role { get; set; }
+        public bool IsDeleted { get; set; } = false;
+
         public int CountryId { get; set; }
         [ForeignKey("CountryId")]
         public Country Country { get; set; }

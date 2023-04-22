@@ -19,6 +19,7 @@ namespace DAL.Repositories
             Genre= new GenreRepository(_db);
             Tag = new TagRepository(_db);
             VideoTag = new VideoTagsRepository(_db);
+            UserRepo = new UserRepository(_db);
         }
 
         public IVideoRepository Video { get; private set; }
@@ -28,6 +29,8 @@ namespace DAL.Repositories
         public ITagRepository Tag { get; private set; }
 
         public IVideoTagsRepository VideoTag { get; private set; }
+
+        public IUserRepository UserRepo { get; private set; }
 
         public void Save()
         {
