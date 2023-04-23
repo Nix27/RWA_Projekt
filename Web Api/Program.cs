@@ -26,6 +26,7 @@ builder.Services.AddScoped<IGenreService, GenreService>();
 builder.Services.AddScoped<ITagService, TagService>();
 builder.Services.AddScoped<IVideoService, VideoService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<INotificationService, NotificationService>();
 
 builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

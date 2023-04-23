@@ -13,6 +13,7 @@ namespace DAL.IRepositories
         ITagRepository Tag { get; }
         IVideoTagsRepository VideoTag { get; }
         IUserRepository UserRepo { get; }
+        INotificationRepository Notification { get; }
 
         void Save();
     }
