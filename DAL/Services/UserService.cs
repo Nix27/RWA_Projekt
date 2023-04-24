@@ -57,17 +57,35 @@ namespace DAL.Services
                 Email = user.Email,
                 PwdHash = b64Hash,
                 PwdSalt = b64Salt,
-                IsConfirmed = true,
+                IsConfirmed = false,
                 SecurityToken = b64SecToken,
                 Phone = user.Phone,
                 Role = user.Role ?? "User",
                 CountryId = user.CountryId
             };
 
+            var notificationForValidateEmail = new Notification
+            {
+                ReceiverEmail = newUser.Email,
+                Subject = "Email verification",
+                Body = $"To verify your e-mail address please click on link: https://localhost:44318/api/Users/ValidateEmail?Email={newUser.Email}&B64SecToken={newUser.SecurityToken}"
+            };
+
             _unitOfWork.UserRepo.Add(newUser);
+            _unitOfWork.Notification.Add(notificationForValidateEmail);
             _unitOfWork.Save();
 
             return UserMapping.MapToDto(newUser);
+        }
+
+        public void ValidateEmail(ValidateEmilRequest request)
+        {
+            var foundUser = _unitOfWork.UserRepo.GetFirstOrDefault(u => u.Email == request.Email && u.SecurityToken == request.B64SecToken);
+
+            if (foundUser == null)
+                throw new Exception("Authentication failed");
+
+            foundUser.IsConfirmed = true;
         }
 
         private bool Authenticate(string email, string password)

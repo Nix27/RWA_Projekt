@@ -21,25 +21,46 @@ namespace Web_Api.Controllers
         [HttpGet]
         public IActionResult GetAllVideos()
         {
-            return Ok(_videoService.GetAll());
+            try
+            {
+                return Ok(_videoService.GetAll());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [AllowAnonymous]
         [HttpGet("{id}")]
         public IActionResult GetVideo(int id)
         {
-            var foundVideo = _videoService.Get(id);
+            try
+            {
+                var foundVideo = _videoService.Get(id);
 
-            if(foundVideo == null) return NotFound();
+                if (foundVideo == null) return NotFound();
 
-            return Ok(foundVideo);
+                return Ok(foundVideo);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [AllowAnonymous]
         [HttpGet("[action]")]
         public IActionResult SearchVideos(int size, int page, string? filterNames, string? orderBy, string? direction)
         {
-            return Ok(_videoService.Search(size, page, filterNames, orderBy, direction));
+            try
+            {
+                return Ok(_videoService.Search(size, page, filterNames, orderBy, direction));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
@@ -47,7 +68,14 @@ namespace Web_Api.Controllers
         {
             if(!ModelState.IsValid) return BadRequest(ModelState);
 
-            return Ok(_videoService.Create(video));
+            try
+            {
+                return Ok(_videoService.Create(video));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         
         [HttpPut("{id}")]
@@ -55,21 +83,35 @@ namespace Web_Api.Controllers
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            var updatedVideo = _videoService.Update(id, video);
+            try
+            {
+                var updatedVideo = _videoService.Update(id, video);
 
-            if(updatedVideo == null) return NotFound();
+                if (updatedVideo == null) return NotFound();
 
-            return Ok(updatedVideo);
+                return Ok(updatedVideo);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete("{id}")]
         public IActionResult DeleteVideo(int id)
         {
-            var deletedVideo = _videoService.Delete(id);
+            try
+            {
+                var deletedVideo = _videoService.Delete(id);
 
-            if(deletedVideo == null) return NotFound();
+                if (deletedVideo == null) return NotFound();
 
-            return Ok(deletedVideo);
+                return Ok(deletedVideo);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

@@ -20,17 +20,31 @@ namespace Web_Api.Controllers
         [HttpGet]
         public IActionResult GetAllGenres()
         {
-            return Ok(_genreService.GetAll());
+            try
+            {
+                return Ok(_genreService.GetAll());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet("{id}")]
         public IActionResult GetGenre(int id)
         {
-            var foundGenre = _genreService.Get(id); 
+            try
+            {
+                var foundGenre = _genreService.Get(id);
 
-            if (foundGenre == null) return NotFound();
+                if (foundGenre == null) return NotFound();
 
-            return Ok(foundGenre);
+                return Ok(foundGenre);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
@@ -38,7 +52,14 @@ namespace Web_Api.Controllers
         {
             if(!ModelState.IsValid) return BadRequest(ModelState);
 
-            return Ok(_genreService.Create(genre));
+            try
+            {
+                return Ok(_genreService.Create(genre));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut("{id}")]
@@ -46,21 +67,35 @@ namespace Web_Api.Controllers
         {
             if(!ModelState.IsValid) return BadRequest(ModelState);
 
-            var updatedGenre = _genreService.Update(id, genre);
+            try
+            {
+                var updatedGenre = _genreService.Update(id, genre);
 
-            if (updatedGenre == null) return NotFound();
+                if (updatedGenre == null) return NotFound();
 
-            return Ok(updatedGenre);
+                return Ok(updatedGenre);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete("{id}")]
         public IActionResult DeleteGenre(int id)
         {
-            var deletedGenre = _genreService.Delete(id);
+            try
+            {
+                var deletedGenre = _genreService.Delete(id);
 
-            if(deletedGenre == null) return NotFound();
+                if (deletedGenre == null) return NotFound();
 
-            return Ok(deletedGenre);
+                return Ok(deletedGenre);
+            }
+            catch (Exception ex) 
+            { 
+                return BadRequest(ex.Message); 
+            }
         }
     }
 }

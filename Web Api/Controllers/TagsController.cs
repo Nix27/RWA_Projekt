@@ -21,17 +21,31 @@ namespace Web_Api.Controllers
         [HttpGet]
         public IActionResult GetAllTags()
         {
-            return Ok(_tagService.GetAll());
+            try
+            {
+                return Ok(_tagService.GetAll());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet("{id}")]
         public IActionResult GetTag(int id)
         {
-            var foundTag = _tagService.Get(id);
+            try
+            {
+                var foundTag = _tagService.Get(id);
 
-            if (foundTag == null) return NotFound();
+                if (foundTag == null) return NotFound();
 
-            return Ok(foundTag);
+                return Ok(foundTag);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
@@ -39,7 +53,14 @@ namespace Web_Api.Controllers
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            return Ok(_tagService.Create(tag));
+            try
+            {
+                return Ok(_tagService.Create(tag));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut("{id}")]
@@ -47,21 +68,35 @@ namespace Web_Api.Controllers
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            var updatedTag = _tagService.Update(id, tag);
+            try
+            {
+                var updatedTag = _tagService.Update(id, tag);
 
-            if (updatedTag == null) return NotFound();
+                if (updatedTag == null) return NotFound();
 
-            return Ok(updatedTag);
+                return Ok(updatedTag);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         
         [HttpDelete("{id}")]
         public IActionResult DeleteTag(int id)
         {
-            var deletedTag = _tagService.Delete(id);
+            try
+            {
+                var deletedTag = _tagService.Delete(id);
 
-            if (deletedTag == null) return NotFound();
+                if (deletedTag == null) return NotFound();
 
-            return Ok(deletedTag);
+                return Ok(deletedTag);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

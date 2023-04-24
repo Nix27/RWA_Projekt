@@ -21,27 +21,67 @@ namespace Web_Api.Controllers
         [HttpGet]
         public IActionResult GetAllUsers()
         {
-            return Ok(_userService.GetAll());
+            try
+            {
+                return Ok(_userService.GetAll());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet("{id}")]
         public IActionResult GetUser(int id)
         {
-            var foundUser = _userService.Get(id);
+            try
+            {
+                var foundUser = _userService.Get(id);
 
-            if (foundUser == null) return NotFound();
+                if (foundUser == null) return NotFound();
 
-            return Ok(foundUser);
+                return Ok(foundUser);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
+        [AllowAnonymous]
         [HttpPost("[action]")]
         public IActionResult RegisterUser([FromBody] UserRegisterRequest user)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            return Ok(_userService.Create(user));
+            try
+            {
+                return Ok(_userService.Create(user));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
+        [HttpPost("[action]")]
+        [AllowAnonymous]
+        public IActionResult ValidateEmail([FromQuery]ValidateEmilRequest request)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            try
+            {
+               _userService.ValidateEmail(request);
+               return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [AllowAnonymous]
         [HttpPost("[action]")]
         public IActionResult LogIn([FromBody] LoginRequest request)
         {
@@ -62,23 +102,38 @@ namespace Web_Api.Controllers
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            var updatedUser = _userService.Update(id, user);
+            try
+            {
+                var updatedUser = _userService.Update(id, user);
 
-            if (updatedUser == null) return NotFound();
+                if (updatedUser == null) return NotFound();
 
-            return Ok(updatedUser);
+                return Ok(updatedUser);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var deletedUser = _userService.Delete(id);
+            try
+            {
+                var deletedUser = _userService.Delete(id);
 
-            if (deletedUser == null) return NotFound();
+                if (deletedUser == null) return NotFound();
 
-            return Ok(deletedUser);
+                return Ok(deletedUser);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
+        [AllowAnonymous]
         [HttpPost("[action]")]
         public IActionResult ChangePassword([FromBody] ChangePasswordRequest request)
         {

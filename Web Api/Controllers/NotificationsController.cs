@@ -20,17 +20,31 @@ namespace Web_Api.Controllers
         [HttpGet]
         public IActionResult GetAllNotifications()
         {
-            return Ok(_notificationService.GetAll());
+            try
+            {
+                return Ok(_notificationService.GetAll());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet("{id}")]
         public IActionResult GetNotification(int id)
         {
-            var foundNotification = _notificationService.Get(id);
+            try
+            {
+                var foundNotification = _notificationService.Get(id);
 
-            if(foundNotification== null) return NotFound();
+                if (foundNotification == null) return NotFound();
 
-            return Ok(foundNotification);
+                return Ok(foundNotification);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
@@ -38,7 +52,14 @@ namespace Web_Api.Controllers
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            return Ok(_notificationService.Create(notification));
+            try
+            {
+                return Ok(_notificationService.Create(notification));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut("{id}")]
@@ -46,21 +67,35 @@ namespace Web_Api.Controllers
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            var updatedNotification = _notificationService.Update(id, notification);
+            try
+            {
+                var updatedNotification = _notificationService.Update(id, notification);
 
-            if(updatedNotification == null) return NotFound();
+                if (updatedNotification == null) return NotFound();
 
-            return Ok(updatedNotification); 
+                return Ok(updatedNotification);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            } 
         }
 
         [HttpDelete("{id}")]
         public IActionResult DeleteNotification(int id)
         {
-            var deletedNotification = _notificationService.Delete(id);
+            try
+            {
+                var deletedNotification = _notificationService.Delete(id);
 
-            if(deletedNotification == null) return NotFound();
+                if (deletedNotification == null) return NotFound();
 
-            return Ok(deletedNotification);
+                return Ok(deletedNotification);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
