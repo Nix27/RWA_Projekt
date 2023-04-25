@@ -14,6 +14,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace DAL.Services
 {
@@ -64,11 +65,14 @@ namespace DAL.Services
                 CountryId = user.CountryId
             };
 
+            var encodedEmail = HttpUtility.UrlEncode(newUser.Email);
+            var encodedSecurityToken = HttpUtility.UrlEncode(newUser.SecurityToken);
+
             var notificationForValidateEmail = new Notification
             {
                 ReceiverEmail = newUser.Email,
                 Subject = "Email verification",
-                Body = $"To verify your e-mail address please click on link: https://localhost:44318/api/Users/ValidateEmail?Email={newUser.Email}&B64SecToken={newUser.SecurityToken}"
+                Body = $"To verify your e-mail address please click on link: https://localhost:44318/api/Users/ValidateEmail?Email={encodedEmail}&B64SecToken={encodedSecurityToken}"
             };
 
             _unitOfWork.UserRepo.Add(newUser);
@@ -80,6 +84,9 @@ namespace DAL.Services
 
         public void ValidateEmail(ValidateEmilRequest request)
         {
+            var decodedEmail = HttpUtility.UrlDecode(request.Email);
+            var decodedSecurityToken = HttpUtility.UrlDecode(request.B64SecToken);
+
             var foundUser = _unitOfWork.UserRepo.GetFirstOrDefault(u => u.Email == request.Email && u.SecurityToken == request.B64SecToken);
 
             if (foundUser == null)
