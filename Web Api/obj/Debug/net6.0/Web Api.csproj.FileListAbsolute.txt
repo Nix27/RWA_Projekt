@@ -91,3 +91,4 @@ C:\Users\Nix\Documents\RWA\Nikola_Zečić_Projekt\Web Api\bin\Debug\net6.0\Micro
 C:\Users\Nix\Documents\RWA\Nikola_Zečić_Projekt\Web Api\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.OpenIdConnect.dll
 C:\Users\Nix\Documents\RWA\Nikola_Zečić_Projekt\Web Api\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.Internal.dll
 C:\Users\Nix\Documents\RWA\Nikola_Zečić_Projekt\Web Api\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Users\Nix\Documents\RWA\Nikola_Zečić_Projekt\Web Api\bin\Debug\net6.0\Web Api.staticwebassets.runtime.json

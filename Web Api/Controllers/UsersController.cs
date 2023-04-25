@@ -8,7 +8,6 @@ namespace Web_Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Admin")]
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -64,7 +63,7 @@ namespace Web_Api.Controllers
             }
         }
 
-        [HttpPost("[action]")]
+        [HttpGet("[action]")]
         [AllowAnonymous]
         public IActionResult ValidateEmail([FromQuery]ValidateEmilRequest request)
         {
@@ -73,7 +72,7 @@ namespace Web_Api.Controllers
             try
             {
                _userService.ValidateEmail(request);
-               return Ok();
+               return Ok("Verified");
             }
             catch (Exception ex)
             {

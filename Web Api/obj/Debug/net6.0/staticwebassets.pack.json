@@ -1,0 +1,29 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\Nix\\Documents\\RWA\\Nikola_Zečić_Projekt\\Web Api\\wwwroot\\NotificationManagement.html",
+      "PackagePath": "staticwebassets\\NotificationManagement.html"
+    },
+    {
+      "Id": "C:\\Users\\Nix\\Documents\\RWA\\Nikola_Zečić_Projekt\\Web Api\\wwwroot\\NotificationManagement.js",
+      "PackagePath": "staticwebassets\\NotificationManagement.js"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.Web Api.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.build.Web Api.props",
+      "PackagePath": "build\\Web Api.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildMultiTargeting.Web Api.props",
+      "PackagePath": "buildMultiTargeting\\Web Api.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildTransitive.Web Api.props",
+      "PackagePath": "buildTransitive\\Web Api.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

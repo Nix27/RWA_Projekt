@@ -14,5 +14,7 @@ namespace DAL.Services
         NotificationDto Create(NotificationDto notification);
         NotificationDto? Update(int id, NotificationDto notification);
         NotificationDto? Delete(int id);
+        void Send();
+        int GetNumberOfUnsent();
     }
 }

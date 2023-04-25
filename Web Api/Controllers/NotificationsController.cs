@@ -47,6 +47,19 @@ namespace Web_Api.Controllers
             }
         }
 
+        [HttpGet("[action]")]
+        public IActionResult GetNumberOfUnsentNotifications()
+        {
+            try
+            {
+                return Ok(_notificationService.GetNumberOfUnsent());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost]
         public IActionResult CreateNotification([FromBody] NotificationDto notification)
         {
@@ -79,6 +92,20 @@ namespace Web_Api.Controllers
             {
                 return BadRequest(ex.Message);
             } 
+        }
+
+        [HttpPost("[action]")]
+        public IActionResult SendAllNotifications()
+        {
+            try
+            {
+                _notificationService.Send();
+                return Ok("Notifications sent successfully");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete("{id}")]

@@ -86,6 +86,7 @@ namespace DAL.Services
                 throw new Exception("Authentication failed");
 
             foundUser.IsConfirmed = true;
+            _unitOfWork.Save();
         }
 
         private bool Authenticate(string email, string password)
