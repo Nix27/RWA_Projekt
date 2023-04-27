@@ -100,7 +100,7 @@ namespace Web_Api.Controllers
             try
             {
                 _notificationService.Send();
-                return Ok("Notifications sent successfully");
+                return Ok();
             }
             catch (Exception ex)
             {
