@@ -11,7 +11,7 @@ namespace DAL.Models
     {
         [Key]
         public int Id { get; set; }
-        [Required(ErrorMessage = "Content of image is required")]
+        [Required(ErrorMessage = "Image is required")]
         public string? Content { get; set; }
         public ICollection<Video> Videos { get; set; }
     }

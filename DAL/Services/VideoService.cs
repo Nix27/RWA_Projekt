@@ -33,7 +33,7 @@ namespace DAL.Services
 
         public VideoDto? Delete(int id)
         {
-            var videoForDelete = _unitOfWork.Video.GetFirstOrDefault(v => v.Id == id, includeProperties: "VideoTags.Tag");
+            var videoForDelete = _unitOfWork.Video.GetFirstOrDefault(v => v.Id == id, includeProperties: "Image,VideoTags.Tag");
 
             if (videoForDelete == null) return null;
 
@@ -45,7 +45,7 @@ namespace DAL.Services
 
         public VideoDto? Get(int id)
         {
-            var requestedVideo = _unitOfWork.Video.GetFirstOrDefault(v => v.Id == id, includeProperties: "VideoTags.Tag");
+            var requestedVideo = _unitOfWork.Video.GetFirstOrDefault(v => v.Id == id, includeProperties: "Image,VideoTags.Tag");
 
             if (requestedVideo == null) return null;
 
@@ -54,14 +54,14 @@ namespace DAL.Services
 
         public ICollection<VideoDto> GetAll()
         {
-            var allVideos = _unitOfWork.Video.GetAll(includeProperties: "VideoTags.Tag");
+            var allVideos = _unitOfWork.Video.GetAll(includeProperties: "Image,VideoTags.Tag");
 
             return VideoMapping.MapToDto(allVideos).ToList();
         }
 
         public VideoDto? Update(int id, VideoDto video)
         {
-            var videoForUpdate = _unitOfWork.Video.GetFirstOrDefault(v => v.Id == id, includeProperties: "VideoTags.Tag");
+            var videoForUpdate = _unitOfWork.Video.GetFirstOrDefault(v => v.Id == id, includeProperties: "Genre,Image,VideoTags.Tag");
 
             videoForUpdate.Name = video.Name;
             videoForUpdate.Description = video.Description;
@@ -97,7 +97,7 @@ namespace DAL.Services
 
         public ICollection<VideoDto> Search(int size, int page, string? filterNames, string? orderBy, string? direction)
         {
-            var videos = _unitOfWork.Video.GetAll(includeProperties: "VideoTags.Tag");
+            var videos = _unitOfWork.Video.GetAll(includeProperties: "Image,VideoTags.Tag");
 
             //filtering
             if(filterNames != null)
@@ -119,6 +119,11 @@ namespace DAL.Services
             videos = videos.Skip(size * page).Take(size);
 
             return VideoMapping.MapToDto(videos).ToList();
+        }
+
+        public ICollection<Video> GetAllForView()
+        {
+            return _unitOfWork.Video.GetAll(includeProperties: "Genre,Image,VideoTags.Tag").ToList();
         }
     }
 }

@@ -1,19 +1,9 @@
 ﻿window.onload = () => {
-    let spanElement = document.querySelector('span');
     let btnSend = document.querySelector('#btnSend');
     let pResponse = document.querySelector('#pResponse');
 
-    fetch('api/Notifications/GetNumberOfUnsentNotifications', {
-        method: 'get',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-        .then(response => response.json())
-        .then(data => spanElement.innerText = data)
-        .catch(error => console.log(error));
-
-    refreshNotifications();
+    getNumberOfUnsentNotifications();
+    getNotifications();
     loadNotifications();
     
     btnSend.addEventListener('click', () => {
@@ -25,15 +15,26 @@
         })
             .then(() => {
                 pResponse.innerHTML = 'Notifications sent successfully';
-                refreshNotifications();
-                loadNotifications();
-                spanElement.innerText = 0;
+                getNumberOfUnsentNotifications();
             })
             .catch(error => console.log(error))
     });
 };
 
-function refreshNotifications() {
+function getNumberOfUnsentNotifications() {
+    let spanElement = document.querySelector('span');
+    fetch('api/Notifications/GetNumberOfUnsentNotifications', {
+        method: 'get',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => response.json())
+        .then(data => spanElement.innerText = data)
+        .catch(error => console.log(error));
+}
+
+function getNotifications() {
     fetch('api/Notifications', {
         method: 'get',
         headers: {
@@ -54,7 +55,7 @@ function refreshNotifications() {
 
 function loadNotifications() {
     let notifications = JSON.parse(localStorage.getItem('notifications'));
-    let dataTable = $('#tblNotifications').DataTable({
+    $('#tblNotifications').DataTable({
         data: notifications,
         columns: [
             { data: "id", width: "15%" },

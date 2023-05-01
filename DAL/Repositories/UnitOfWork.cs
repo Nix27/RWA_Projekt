@@ -21,6 +21,7 @@ namespace DAL.Repositories
             VideoTag = new VideoTagsRepository(_db);
             UserRepo = new UserRepository(_db);
             Notification = new NotificationRepository(_db);
+            Image = new ImageRepository(_db);
         }
 
         public IVideoRepository Video { get; private set; }
@@ -34,6 +35,8 @@ namespace DAL.Repositories
         public IUserRepository UserRepo { get; private set; }
 
         public INotificationRepository Notification { get; private set; }
+
+        public IImageRepository Image { get; private set; }
 
         public void Save()
         {
