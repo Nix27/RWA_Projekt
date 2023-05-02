@@ -15,6 +15,7 @@ namespace DAL.IRepositories
         IUserRepository UserRepo { get; }
         INotificationRepository Notification { get; }
         IImageRepository Image { get; }
+        ICountryRepository Country { get; }
 
         void Save();
     }

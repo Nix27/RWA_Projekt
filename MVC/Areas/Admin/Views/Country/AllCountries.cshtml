@@ -1,0 +1,23 @@
+﻿@model ICollection<CountryDto>
+
+<div class="container p-2">
+    <h2 class="text-primary">All Countries</h2>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th class="lead">Name</th>
+                <th class="lead">Code</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var country in Model)
+            {
+                <tr>
+                    <td>@country.Name</td>
+                    <td>@country.Code</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

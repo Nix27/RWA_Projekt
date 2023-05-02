@@ -16,6 +16,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\Nix\Documents\RWA\Nikola_Zečić_Projekt\MVC
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/Nix/Documents/RWA/Nikola_Zečić_Projekt/MVC/Areas/Admin/Views/Country/AllCountries.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ291bnRyeVxBbGxDb3VudHJpZXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Nix/Documents/RWA/Nikola_Zečić_Projekt/MVC/Areas/Admin/Views/Video/AllVideos.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcVmlkZW9cQWxsVmlkZW9zLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

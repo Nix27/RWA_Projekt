@@ -22,6 +22,7 @@ namespace DAL.Repositories
             UserRepo = new UserRepository(_db);
             Notification = new NotificationRepository(_db);
             Image = new ImageRepository(_db);
+            Country = new CountryRepository(_db);
         }
 
         public IVideoRepository Video { get; private set; }
@@ -37,6 +38,8 @@ namespace DAL.Repositories
         public INotificationRepository Notification { get; private set; }
 
         public IImageRepository Image { get; private set; }
+
+        public ICountryRepository Country { get; private set; }
 
         public void Save()
         {
