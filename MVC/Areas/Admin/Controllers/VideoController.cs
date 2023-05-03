@@ -14,49 +14,67 @@ namespace MVC.Areas.Admin.Controllers
         private readonly IGenreService _genreService;
         private readonly IImageService _imageService;
         private readonly ITagService _tagService;
+        private readonly ILogger<VideoController> _logger;
 
         public VideoController(
             IVideoService videoService, 
             IGenreService genreService, 
             IImageService imageService, 
-            ITagService tagService)
+            ITagService tagService,
+            ILogger<VideoController> logger)
         {
             _videoService = videoService;
             _genreService = genreService;
             _imageService = imageService;
             _tagService = tagService;
+            _logger = logger;
         }
 
         public IActionResult AllVideos()
         {
-            var allVideos = _videoService.GetAllForView();
-            return View(allVideos);
+            try
+            {
+                var allVideos = _videoService.GetAllForView();
+                return View(allVideos);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Unable to get videos");
+                return View("/Public/Home/Error");
+            }
         }
-
 
         public IActionResult CreateVideo()
         {
-            VideoVM videoVM = new()
+            try
             {
-                Video = new(),
-                Genres = _genreService.GetAll().Select(g => new SelectListItem
+                VideoVM videoVM = new()
                 {
-                    Text = g.Name,
-                    Value = g.Id.ToString()
-                }),
-                Images = _imageService.GetAll().Select(i => new SelectListItem
-                {
-                    Text = i.Content?.Substring(i.Content.LastIndexOf('/') + 1),
-                    Value = i.Id.ToString()
-                }),
-                Tags = _tagService.GetAll().Select(t => new SelectListItem
-                {
-                    Text = t.Name,
-                    Value = t.Name
-                })
-            };
+                    Video = new(),
+                    Genres = _genreService.GetAll().Select(g => new SelectListItem
+                    {
+                        Text = g.Name,
+                        Value = g.Id.ToString()
+                    }),
+                    Images = _imageService.GetAll().Select(i => new SelectListItem
+                    {
+                        Text = i.Content?.Substring(i.Content.LastIndexOf('/') + 1),
+                        Value = i.Id.ToString()
+                    }),
+                    Tags = _tagService.GetAll().Select(t => new SelectListItem
+                    {
+                        Text = t.Name,
+                        Value = t.Name
+                    })
+                };
 
-            return View(videoVM);
+                return View(videoVM);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Unable to send data to view for create video");
+                return View("/Public/Home/Error");
+            }
         }
 
         [HttpPost]
@@ -65,40 +83,56 @@ namespace MVC.Areas.Admin.Controllers
         {
             if(!ModelState.IsValid) return View(newVideo);
 
-            _videoService.Create(newVideo.Video);
+            try
+            {
+                _videoService.Create(newVideo.Video);
 
-            return RedirectToAction("AllVideos");
+                return RedirectToAction("AllVideos");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Unable to create video");
+                return View("/Public/Home/Error");
+            }
         }
 
         public IActionResult EditVideo(int id)
         {
             if(id == 0) return NotFound();
 
-            var videoForEdit = _videoService.Get(id);
-
-            if (videoForEdit == null) return NotFound();
-
-            VideoVM videoVM = new()
+            try
             {
-                Video = videoForEdit,
-                Genres = _genreService.GetAll().Select(g => new SelectListItem
-                {
-                    Text = g.Name,
-                    Value = g.Id.ToString()
-                }),
-                Images = _imageService.GetAll().Select(i => new SelectListItem
-                {
-                    Text = i.Content?.Substring(i.Content.LastIndexOf('/') + 1),
-                    Value = i.Id.ToString()
-                }),
-                Tags = _tagService.GetAll().Select(t => new SelectListItem
-                {
-                    Text = t.Name,
-                    Value = t.Name
-                })
-            };
+                var videoForEdit = _videoService.Get(id);
 
-            return View(videoVM);
+                if (videoForEdit == null) return NotFound();
+
+                VideoVM videoVM = new()
+                {
+                    Video = videoForEdit,
+                    Genres = _genreService.GetAll().Select(g => new SelectListItem
+                    {
+                        Text = g.Name,
+                        Value = g.Id.ToString()
+                    }),
+                    Images = _imageService.GetAll().Select(i => new SelectListItem
+                    {
+                        Text = i.Content?.Substring(i.Content.LastIndexOf('/') + 1),
+                        Value = i.Id.ToString()
+                    }),
+                    Tags = _tagService.GetAll().Select(t => new SelectListItem
+                    {
+                        Text = t.Name,
+                        Value = t.Name
+                    })
+                };
+
+                return View(videoVM);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Unable to send data to view for edit video");
+                return View("/Public/Home/Error");
+            }
         }
 
         [HttpPost]
@@ -107,11 +141,19 @@ namespace MVC.Areas.Admin.Controllers
         {
             if(!ModelState.IsValid) return View(videoForEdit);
 
-            int id = videoForEdit.Video.Id ?? 0;
+            try
+            {
+                int id = videoForEdit.Video.Id ?? 0;
 
-            _videoService.Update(id, videoForEdit.Video);
+                _videoService.Update(id, videoForEdit.Video);
 
-            return RedirectToAction("AllVideos");
+                return RedirectToAction("AllVideos");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Unable to edit video");
+                return View("/Public/Home/Error");
+            }
         }
 
         [HttpDelete]
@@ -119,12 +161,20 @@ namespace MVC.Areas.Admin.Controllers
         {
             if(id == 0) return NotFound();
 
-            var deletedVideo = _videoService.Delete(id);
+            try
+            {
+                var deletedVideo = _videoService.Delete(id);
 
-            if (deletedVideo == null)
-                return Json(new { success = false, message = "Unable to delete video" });
+                if (deletedVideo == null)
+                    return Json(new { success = false, message = "Unable to delete video" });
 
-            return Json(new { success = true, message = "Video deleted successfully" });
+                return Json(new { success = true, message = "Video deleted successfully" });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Unable to delete video");
+                return View("/Public/Home/Error");
+            }
         }
     }
 }

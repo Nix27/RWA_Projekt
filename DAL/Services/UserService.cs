@@ -137,9 +137,9 @@ namespace DAL.Services
             {
                 Subject = new ClaimsIdentity(new System.Security.Claims.Claim[]
                 {
-                    new System.Security.Claims.Claim(ClaimTypes.Name, request.Email),
-                    new System.Security.Claims.Claim(JwtRegisteredClaimNames.Sub, request.Email),
-                    new System.Security.Claims.Claim(ClaimTypes.Role, role)
+                    new Claim(ClaimTypes.Name, request.Email),
+                    new Claim(JwtRegisteredClaimNames.Sub, request.Email),
+                    new Claim(ClaimTypes.Role, role)
                 }),
                 Issuer = _configuration["JWT:Issuer"],
                 Audience = _configuration["JWT:Audience"],

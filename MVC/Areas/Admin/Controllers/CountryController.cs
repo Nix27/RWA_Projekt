@@ -7,16 +7,26 @@ namespace MVC.Areas.Admin.Controllers
     public class CountryController : Controller
     {
         private readonly ICountryService _countryService;
+        private readonly ILogger<CountryController> _logger;
 
-        public CountryController(ICountryService countryService)
+        public CountryController(ICountryService countryService, ILogger<CountryController> logger)
         {
             _countryService = countryService;
+            _logger = logger;
         }
 
         public IActionResult AllCountries()
         {
-            var allCountries = _countryService.GetAll();
-            return View(allCountries);
+            try
+            {
+                var allCountries = _countryService.GetAll();
+                return View(allCountries);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Unable to get countries");
+                return View("/Public/Home/Error");
+            }
         }
     }
 }

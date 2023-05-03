@@ -11,7 +11,7 @@
     </div>
     <br />
 
-    <table id="tblVideos" class="table table-bordered table-striped" style="width: 100%"> 
+    <table id="tblVideos" class="table table-bordered table-striped" style="width: 100%">
         <thead>
             <tr>
                 <th>Image</th>
@@ -24,8 +24,8 @@
                 <th></th>
             </tr>
         </thead>
-        <tbody>
-            @foreach(var video in Model)
+        <tbody id="tblBody">
+            @foreach (var video in Model)
             {
                 <tr>
                     <td>
@@ -37,7 +37,7 @@
                     <td>@video.StreamingURL</td>
                     <td>@video.Genre.Name</td>
                     <td>
-                        @foreach(var videoTag in video.VideoTags)
+                        @foreach (var videoTag in video.VideoTags)
                         {
                             <text>@videoTag.Tag.Name </text>
                         }
@@ -45,15 +45,30 @@
                     <td>
                         <div class="w-75 btn-group" role="group">
                             <a asp-area="Admin" asp-controller="Video" asp-action="EditVideo" asp-route-id="@video.Id" class="btn btn-success mx-2"><i class="bi bi-pencil-square"></i></a>
-                            <a onclick="DeleteVideoWarning('/Admin/Video/DeleteVideo/'+@video.Id)" class="btn btn-danger mx-2"><i class="bi bi-trash3"></i></a>
+                            <a onclick="DeleteWarning('/Admin/Video/DeleteVideo/'+@video.Id, ' #tblVideos')" class="btn btn-danger mx-2"><i class="bi bi-trash3"></i></a>
                         </div>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
+    <div class="row mt-3">
+        <div class="justify-content-end">
+            <ul class="pagination justify-content-end">
+                <li>
+                    <a href="#" class="page-link" data-page="previous">Previous</a>
+                </li>
+                <li class="pt-2">
+                    <span id="current-page">1</span>
+                </li>
+                <li>
+                    <a href="#" class="page-link" data-page="next">Next</a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>
 
 @section Scripts{
-    <script src="~/js/video.js"></script>
+    <script src="~/js/deleteWarning.js"></script>
 }

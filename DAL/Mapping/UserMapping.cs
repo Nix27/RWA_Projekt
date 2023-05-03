@@ -22,7 +22,8 @@ namespace DAL.Mapping
                 LastName = user.LastName,
                 Email = user.Email,
                 Phone = user.Phone,
-                CountryId = user.CountryId
+                CountryId = user.CountryId,
+                Country = user.Country?.Name
             };
         }
 

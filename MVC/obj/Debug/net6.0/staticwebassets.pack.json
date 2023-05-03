@@ -21,12 +21,12 @@
       "PackagePath": "staticwebassets\\images\\tiger.jpg"
     },
     {
-      "Id": "C:\\Users\\Nix\\Documents\\RWA\\Nikola_Zečić_Projekt\\MVC\\wwwroot\\js\\site.js",
-      "PackagePath": "staticwebassets\\js\\site.js"
+      "Id": "C:\\Users\\Nix\\Documents\\RWA\\Nikola_Zečić_Projekt\\MVC\\wwwroot\\js\\deleteWarning.js",
+      "PackagePath": "staticwebassets\\js\\deleteWarning.js"
     },
     {
-      "Id": "C:\\Users\\Nix\\Documents\\RWA\\Nikola_Zečić_Projekt\\MVC\\wwwroot\\js\\video.js",
-      "PackagePath": "staticwebassets\\js\\video.js"
+      "Id": "C:\\Users\\Nix\\Documents\\RWA\\Nikola_Zečić_Projekt\\MVC\\wwwroot\\js\\site.js",
+      "PackagePath": "staticwebassets\\js\\site.js"
     },
     {
       "Id": "C:\\Users\\Nix\\Documents\\RWA\\Nikola_Zečić_Projekt\\MVC\\wwwroot\\lib\\bootstrap\\LICENSE",

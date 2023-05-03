@@ -1,0 +1,46 @@
+﻿@model UserVM
+
+<form method="post">
+    <input asp-for="User.Id" hidden />
+    <div class="border-2 mt-4">
+        <div class="row mb-2">
+            <h2 class="text-primary">Edit User</h2>
+            <hr />
+        </div>
+        <div class="row">
+            <div class="mb-3 col-6">
+                <label asp-for="User.UserName"></label>
+                <input asp-for="User.UserName" class="form-control border border-1 border-dark" />
+                <span asp-validation-for="User.UserName" class="text-danger"></span>
+            </div>
+            <div class="mb-3 col-6">
+                <label asp-for="User.FirstName"></label>
+                <input asp-for="User.FirstName" class="form-control border border-1 border-dark" />
+                <span asp-validation-for="User.FirstName" class="text-danger"></span>
+            </div>
+            <div class="mb-3 col-6">
+                <label asp-for="User.LastName"></label>
+                <input asp-for="User.LastName" class="form-control border border-1 border-dark" />
+                <span asp-validation-for="User.LastName" class="text-danger"></span>
+            </div>
+            <div class="mb-3 col-6">
+                <label asp-for="User.Email"></label>
+                <input asp-for="User.Email" class="form-control border border-1 border-dark" />
+                <span asp-validation-for="User.Email" class="text-danger"></span>
+            </div>
+            <div class="mb-3 col-6">
+                <label asp-for="User.Phone"></label>
+                <input asp-for="User.Phone" class="form-control border border-1 border-dark" />
+            </div>
+            <div class="mb-3 col-6">
+                <label asp-for="User.CountryId"></label>
+                <select asp-for="User.CountryId" asp-items="Model.Countries" class="form-control border border-1 border-dark">
+                    <option disabled selected>--Select country--</option>
+                </select>
+                <span asp-validation-for="User.CountryId" class="text-danger"></span>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-dark" style="width: 150px">Save</button>
+        <a asp-area="Admin" asp-controller="User" asp-action="AllUsers" class="btn btn-light" style="width: 150px">Back</a>
+    </div>
+</form>
