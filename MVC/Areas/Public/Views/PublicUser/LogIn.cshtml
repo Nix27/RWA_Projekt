@@ -1,0 +1,63 @@
+﻿@model LoginRequest
+
+<form method="post">
+    <div class="border-2 mt-4">
+        <div class="row mb-2">
+            <h2 class="text-primary">LogIn</h2>
+            <hr />
+        </div>
+        <div class="row">
+            <div class="mb-3">
+                <label asp-for="Email"></label>
+                <input id="email" asp-for="Email" class="form-control border border-1 border-dark" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Password"></label>
+                <input id="pass" asp-for="Password" class="form-control border border-1 border-dark" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <span id="warning" class="text-danger"></span>
+            <div class="mb-3">
+                <p class="text-primary">
+                    New user? <a asp-controller="PublicUser" asp-action="Registration" class="text-info">Register</a>
+                </p>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-dark" style="width: 150px">LogIn</button>
+    </div>
+</form>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+
+        <script>
+            const forma = $('form')[0];
+
+            $(forma).on('submit', event => {
+                event.preventDefault();
+
+                const formData = new FormData(forma);
+                const token = $('input[name="__RequestVerificationToken"]').val();
+
+                $.ajax({
+                    url: 'LogIn',
+                    headers: { 'RequestVerificationToken': token },
+                    type: 'Post',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response){
+                        if(response.success === false){
+                            $('#warning').text(response.message);
+                        }
+                    },
+                    error: function(){
+                        console.log('error')
+                    }
+                });
+            });
+        </script>
+}

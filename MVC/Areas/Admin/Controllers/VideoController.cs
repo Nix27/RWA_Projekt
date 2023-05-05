@@ -40,7 +40,7 @@ namespace MVC.Areas.Admin.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Unable to get videos");
-                return View("/Public/Home/Error");
+                return RedirectToAction("Error", "Home", new { area = "Public" });
             }
         }
 
@@ -73,7 +73,7 @@ namespace MVC.Areas.Admin.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Unable to send data to view for create video");
-                return View("/Public/Home/Error");
+                return RedirectToAction("Error", "Home", new { area = "Public" });
             }
         }
 
@@ -92,7 +92,7 @@ namespace MVC.Areas.Admin.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Unable to create video");
-                return View("/Public/Home/Error");
+                return RedirectToAction("Error", "Home", new { area = "Public" });
             }
         }
 
@@ -131,7 +131,7 @@ namespace MVC.Areas.Admin.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Unable to send data to view for edit video");
-                return View("/Public/Home/Error");
+                return RedirectToAction("Error", "Home", new { area = "Public" });
             }
         }
 
@@ -152,7 +152,7 @@ namespace MVC.Areas.Admin.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Unable to edit video");
-                return View("/Public/Home/Error");
+                return RedirectToAction("Error", "Home", new { area = "Public" });
             }
         }
 
@@ -173,7 +173,7 @@ namespace MVC.Areas.Admin.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Unable to delete video");
-                return View("/Public/Home/Error");
+                return RedirectToAction("Error", "Home", new { area = "Public" });
             }
         }
     }

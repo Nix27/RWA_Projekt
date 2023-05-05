@@ -29,7 +29,7 @@ namespace MVC.Areas.Admin.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Unable to get users");
-                return View("/Public/Home/Error");
+                return RedirectToAction("Error", "Home", new { area = "Public" });
             }
         }
 
@@ -52,7 +52,7 @@ namespace MVC.Areas.Admin.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Unable to send data to view for create user");
-                return View("/Public/Home/Error");
+                return RedirectToAction("Error", "Home", new { area = "Public" });
             }
         }
 
@@ -71,7 +71,7 @@ namespace MVC.Areas.Admin.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Unable to create user");
-                return View("/Public/Home/Error");
+                return RedirectToAction("Error", "Home", new { area = "Public" });
             }
         }
 
@@ -100,7 +100,7 @@ namespace MVC.Areas.Admin.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Unable to send data to view for edit user");
-                return View("/Public/Home/Error");
+                return RedirectToAction("Error", "Home", new { area = "Public" });
             }
         }
 
@@ -121,7 +121,7 @@ namespace MVC.Areas.Admin.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Unable to edit user");
-                return View("/Public/Home/Error");
+                return RedirectToAction("Error", "Home", new { area = "Public" });
             }
         }
 
@@ -142,7 +142,7 @@ namespace MVC.Areas.Admin.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Unable to delete user");
-                return View("/Public/Home/Error");
+                return RedirectToAction("Error", "Home", new { area = "Public" });
             }
         }
     }

@@ -25,7 +25,7 @@ namespace MVC.Areas.Admin.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Unable to get countries");
-                return View("/Public/Home/Error");
+                return RedirectToAction("Error", "Home", new { area = "Public" });
             }
         }
     }

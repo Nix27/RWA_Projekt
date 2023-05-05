@@ -1,0 +1,55 @@
+﻿@model UserRegisterVM
+
+<form method="post">
+    <div class="border-2 mt-4">
+        <div class="row mb-2">
+            <h2 class="text-primary">Registration</h2>
+            <hr />
+        </div>
+        <div class="row">
+            <div class="mb-3 col-6">
+                <label asp-for="UserForRegister.UserName"></label>
+                <input asp-for="UserForRegister.UserName" class="form-control border border-1 border-dark" />
+                <span asp-validation-for="UserForRegister.UserName" class="text-danger"></span>
+            </div>
+            <div class="mb-3 col-6">
+                <label asp-for="UserForRegister.Password"></label>
+                <input asp-for="UserForRegister.Password" class="form-control border border-1 border-dark" />
+                <span asp-validation-for="UserForRegister.Password" class="text-danger"></span>
+            </div>
+            <div class="mb-3 col-6">
+                <label asp-for="UserForRegister.FirstName"></label>
+                <input asp-for="UserForRegister.FirstName" class="form-control border border-1 border-dark" />
+                <span asp-validation-for="UserForRegister.FirstName" class="text-danger"></span>
+            </div>
+            <div class="mb-3 col-6">
+                <label asp-for="UserForRegister.LastName"></label>
+                <input asp-for="UserForRegister.LastName" class="form-control border border-1 border-dark" />
+                <span asp-validation-for="UserForRegister.LastName" class="text-danger"></span>
+            </div>
+            <div class="mb-3 col-6">
+                <label asp-for="UserForRegister.Email"></label>
+                <input asp-for="UserForRegister.Email" class="form-control border border-1 border-dark" />
+                <span asp-validation-for="UserForRegister.Email" class="text-danger"></span>
+            </div>
+            <div class="mb-3 col-6">
+                <label asp-for="UserForRegister.Phone"></label>
+                <input asp-for="UserForRegister.Phone" class="form-control border border-1 border-dark" />
+            </div>
+            <div class="mb-3 col-6">
+                <label asp-for="UserForRegister.CountryId"></label>
+                <select asp-for="UserForRegister.CountryId" asp-items="Model.Countries" class="form-control border border-1 border-dark">
+                    <option disabled selected>--Select country--</option>
+                </select>
+                <span asp-validation-for="UserForRegister.CountryId" class="text-danger"></span>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-dark" style="width: 150px">Register</button>
+    </div>
+</form>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

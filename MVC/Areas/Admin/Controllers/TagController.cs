@@ -27,7 +27,7 @@ namespace MVC.Areas.Admin.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Unable to get tags");
-                return View("/Public/Home/Error");
+                return RedirectToAction("Error", "Home", new { area = "Public" });
             }
         }
 
@@ -51,7 +51,7 @@ namespace MVC.Areas.Admin.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Unable to create tag");
-                return View("/Public/Home/Error");
+                return RedirectToAction("Error", "Home", new { area = "Public" });
             }
         }
 
@@ -70,7 +70,7 @@ namespace MVC.Areas.Admin.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Unable to send data to view for edit tag");
-                return View("/Public/Home/Error");
+                return RedirectToAction("Error", "Home", new { area = "Public" });
             }
         }
 
@@ -91,7 +91,7 @@ namespace MVC.Areas.Admin.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Unable to edit tag");
-                return View("/Public/Home/Error");
+                return RedirectToAction("Error", "Home", new { area = "Public" });
             }
         }
 
@@ -112,7 +112,7 @@ namespace MVC.Areas.Admin.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Unable to delete tag");
-                return View("/Public/Home/Error");
+                return RedirectToAction("Error", "Home", new { area = "Public" });
             }
         }
     }
