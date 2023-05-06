@@ -68,6 +68,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHVibGljXFZpZXdzXEhvbWVcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Nix/Documents/RWA/Nikola_Zečić_Projekt/MVC/Areas/Public/Views/Home/VideoDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHVibGljXFZpZXdzXEhvbWVcVmlkZW9EZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Nix/Documents/RWA/Nikola_Zečić_Projekt/MVC/Areas/Public/Views/PublicUser/LogIn.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHVibGljXFZpZXdzXFB1YmxpY1VzZXJcTG9nSW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

@@ -16,3 +16,24 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.home-card {
+    transition: .3s ease;
+    height: 350px;
+}
+
+    .home-card:hover {
+        transform: scale(1.1);
+    }
+
+.home-card-image {
+    height: 150px;
+    overflow: hidden;
+}
+    .home-card-image img {
+        transition: .5s ease;
+    }
+
+        .home-card-image img:hover {
+            transform: scale(1.3);
+        }

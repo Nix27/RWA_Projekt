@@ -1,25 +1,29 @@
-﻿
+﻿@model IEnumerable<VideoVM>
 @{
     ViewData["Title"] = "Home Page";
 }
 
 <h2 class="text-primary">Videos</h2>
 
-@*<div class="row pb-2">
-    @foreach(var video in Model)
+<div class="row pb-2">
+    @foreach(var videoVm in Model)
     {
         <div class="col-lg-3 col-md-6 col-sm-12">
             <div class="row p-2">
                 <div class="col-12 p-1">
-                    <div class="card border-1 p-2 rounded">
-                        <img src="@video.Image?.Content" class="card-img-top rounded" />
-                        <div class="card-body p-2">
-                            <p class="p-2">@video.Name</p>
-                            <p class="p-2">@video.Description</p>
+                    <a asp-area="Public" asp-controller="Home" asp-action="VideoDetails" asp-route-id="@videoVm.Video.Id" style="text-decoration: none">
+                            <div class="card home-card border-1 p-2 rounded">
+                        <div class="home-card-image">
+                            <img src="@videoVm.ImageURL" class="card-img-top rounded" />
                         </div>
-                    </div>
+                        <div class="card-body p-2">
+                                <p class="card-title h5 p-2">@videoVm.Video.Name</p>
+                                <p class="p-2">@videoVm.Video.Description</p>
+                            </div>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
     }
-</div>*@
+</div>

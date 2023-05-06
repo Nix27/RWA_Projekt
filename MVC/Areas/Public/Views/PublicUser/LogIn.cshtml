@@ -43,14 +43,18 @@
                 const token = $('input[name="__RequestVerificationToken"]').val();
 
                 $.ajax({
-                    url: 'LogIn',
+                    url: 'Public/PublicUser/LogIn',
                     headers: { 'RequestVerificationToken': token },
                     type: 'Post',
                     data: formData,
                     processData: false,
                     contentType: false,
                     success: function(response){
-                        if(response.success === false){
+                        if(response.success === true){
+                            window.location.href = 'Public/Home/Index';
+                            localStorage.setItem('username', response.username);
+                            localStorage.setItem('jwtToken', response.jwtToken);
+                        }else{
                             $('#warning').text(response.message);
                         }
                     },

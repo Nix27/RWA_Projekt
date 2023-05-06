@@ -76,7 +76,9 @@ namespace MVC.Areas.Public.Controllers
             {
                 var jwtToken = _userService.GetToken(loginRequest);
 
-                var data = new { success = true, email = loginRequest.Email, jwtToken = jwtToken};
+                var username = _userService.GetAll().Where(u => u.Email == loginRequest.Email).First().UserName;
+
+                var data = new { success = true, username = username, jwtToken = jwtToken};
 
                 return Json(data);
             }
