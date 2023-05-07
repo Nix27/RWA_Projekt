@@ -1298,6 +1298,19 @@
           }
         }
       },
+      "BL/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "DAL": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/BL.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BL.dll": {}
+        }
+      },
       "DAL/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
@@ -3828,6 +3841,11 @@
         "version.txt"
       ]
     },
+    "BL/1.0.0": {
+      "type": "project",
+      "path": "../BL/BL.csproj",
+      "msbuildProject": "../BL/BL.csproj"
+    },
     "DAL/1.0.0": {
       "type": "project",
       "path": "../DAL/DAL.csproj",
@@ -3836,6 +3854,7 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "BL >= 1.0.0",
       "DAL >= 1.0.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 6.0.14",
       "Microsoft.AspNetCore.Authentication.OpenIdConnect >= 6.0.14",
@@ -3870,6 +3889,9 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
+            "C:\\Users\\Nix\\Documents\\RWA\\Nikola_Zečić_Projekt\\BL\\BL.csproj": {
+              "projectPath": "C:\\Users\\Nix\\Documents\\RWA\\Nikola_Zečić_Projekt\\BL\\BL.csproj"
+            },
             "C:\\Users\\Nix\\Documents\\RWA\\Nikola_Zečić_Projekt\\DAL\\DAL.csproj": {
               "projectPath": "C:\\Users\\Nix\\Documents\\RWA\\Nikola_Zečić_Projekt\\DAL\\DAL.csproj"
             }

@@ -1,8 +1,8 @@
-﻿using DAL.Models;
-using DAL.Services;
-using DAL.ViewModels;
+﻿using BL.Services;
+using DAL.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using MVC.Models;
 
 namespace MVC.Areas.Public.Controllers
 {
@@ -76,11 +76,13 @@ namespace MVC.Areas.Public.Controllers
             {
                 var jwtToken = _userService.GetToken(loginRequest);
 
-                var username = _userService.GetAll().Where(u => u.Email == loginRequest.Email).First().UserName;
+                //var username = _userService.GetAll().Where(u => u.Email == loginRequest.Email).First().UserName;
 
-                var data = new { success = true, username = username, jwtToken = jwtToken};
+                //var data = new { success = true, username = username, jwtToken = jwtToken};
 
-                return Json(data);
+                //return Json(data);
+
+                return RedirectToAction("Index", "Home");
             }
             catch (Exception ex)
             {

@@ -1,9 +1,9 @@
-﻿using DAL.DTO;
-using DAL.Mapping;
-using DAL.Services;
-using DAL.ViewModels;
+﻿using BL.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using MVC.Models;
+using System.Security.Claims;
 
 namespace MVC.Areas.Admin.Controllers
 {
@@ -32,6 +32,10 @@ namespace MVC.Areas.Admin.Controllers
 
         public IActionResult AllVideos()
         {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var username = claimsIdentity.Name;
+
             try
             {
                 var allVideos = _videoService.GetAllForView();

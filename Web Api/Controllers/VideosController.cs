@@ -1,5 +1,5 @@
-﻿using DAL.DTO;
-using DAL.Services;
+﻿using BL.DTO;
+using BL.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

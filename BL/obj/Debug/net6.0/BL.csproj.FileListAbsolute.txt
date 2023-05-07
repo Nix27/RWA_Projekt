@@ -1,0 +1,15 @@
+C:\Users\Nix\Documents\RWA\Nikola_Zečić_Projekt\BL\bin\Debug\net6.0\BL.deps.json
+C:\Users\Nix\Documents\RWA\Nikola_Zečić_Projekt\BL\bin\Debug\net6.0\BL.dll
+C:\Users\Nix\Documents\RWA\Nikola_Zečić_Projekt\BL\bin\Debug\net6.0\BL.pdb
+C:\Users\Nix\Documents\RWA\Nikola_Zečić_Projekt\BL\bin\Debug\net6.0\DAL.dll
+C:\Users\Nix\Documents\RWA\Nikola_Zečić_Projekt\BL\bin\Debug\net6.0\DAL.pdb
+C:\Users\Nix\Documents\RWA\Nikola_Zečić_Projekt\BL\obj\Debug\net6.0\BL.csproj.AssemblyReference.cache
+C:\Users\Nix\Documents\RWA\Nikola_Zečić_Projekt\BL\obj\Debug\net6.0\BL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Nix\Documents\RWA\Nikola_Zečić_Projekt\BL\obj\Debug\net6.0\BL.AssemblyInfoInputs.cache
+C:\Users\Nix\Documents\RWA\Nikola_Zečić_Projekt\BL\obj\Debug\net6.0\BL.AssemblyInfo.cs
+C:\Users\Nix\Documents\RWA\Nikola_Zečić_Projekt\BL\obj\Debug\net6.0\BL.csproj.CoreCompileInputs.cache
+C:\Users\Nix\Documents\RWA\Nikola_Zečić_Projekt\BL\obj\Debug\net6.0\BL.csproj.CopyComplete
+C:\Users\Nix\Documents\RWA\Nikola_Zečić_Projekt\BL\obj\Debug\net6.0\BL.dll
+C:\Users\Nix\Documents\RWA\Nikola_Zečić_Projekt\BL\obj\Debug\net6.0\refint\BL.dll
+C:\Users\Nix\Documents\RWA\Nikola_Zečić_Projekt\BL\obj\Debug\net6.0\BL.pdb
+C:\Users\Nix\Documents\RWA\Nikola_Zečić_Projekt\BL\obj\Debug\net6.0\ref\BL.dll

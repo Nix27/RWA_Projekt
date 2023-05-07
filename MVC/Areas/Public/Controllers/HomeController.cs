@@ -1,5 +1,5 @@
-﻿using DAL.Services;
-using DAL.ViewModels;
+﻿using BL.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MVC.Models;
 using System.Diagnostics;

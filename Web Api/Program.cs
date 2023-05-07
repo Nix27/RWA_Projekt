@@ -1,7 +1,7 @@
+using BL.Services;
 using DAL.ApplicationDbContext;
 using DAL.IRepositories;
 using DAL.Repositories;
-using DAL.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;

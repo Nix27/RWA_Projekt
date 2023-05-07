@@ -20,6 +20,10 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ291bnRyeVxBbGxDb3VudHJpZXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Nix/Documents/RWA/Nikola_Zečić_Projekt/MVC/Areas/Admin/Views/Genre/AllGenres.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcR2VucmVcQWxsR2VucmVzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Nix/Documents/RWA/Nikola_Zečić_Projekt/MVC/Areas/Admin/Views/Tag/AllTags.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcVGFnXEFsbFRhZ3MuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

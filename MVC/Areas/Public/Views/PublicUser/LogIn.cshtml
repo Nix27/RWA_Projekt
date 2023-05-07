@@ -14,7 +14,7 @@
             </div>
             <div class="mb-3">
                 <label asp-for="Password"></label>
-                <input id="pass" asp-for="Password" class="form-control border border-1 border-dark" />
+                <input id="pass" type="password" asp-for="Password" class="form-control border border-1 border-dark" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <span id="warning" class="text-danger"></span>
@@ -33,7 +33,7 @@
         <partial name="_ValidationScriptsPartial" />
     }
 
-        <script>
+        @*<script>
             const forma = $('form')[0];
 
             $(forma).on('submit', event => {
@@ -43,7 +43,8 @@
                 const token = $('input[name="__RequestVerificationToken"]').val();
 
                 $.ajax({
-                    url: 'Public/PublicUser/LogIn',
+                    //url: 'Public/PublicUser/LogIn',
+                    url: 'LogIn',
                     headers: { 'RequestVerificationToken': token },
                     type: 'Post',
                     data: formData,
@@ -51,7 +52,7 @@
                     contentType: false,
                     success: function(response){
                         if(response.success === true){
-                            window.location.href = 'Public/Home/Index';
+                            window.location.href = '../Home/Index';
                             localStorage.setItem('username', response.username);
                             localStorage.setItem('jwtToken', response.jwtToken);
                         }else{
@@ -63,5 +64,5 @@
                     }
                 });
             });
-        </script>
+        </script>*@
 }

@@ -1,7 +1,7 @@
-﻿using DAL.Services;
-using DAL.ViewModels;
+﻿using BL.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using MVC.Models;
 
 namespace MVC.Areas.Admin.Controllers
 {
