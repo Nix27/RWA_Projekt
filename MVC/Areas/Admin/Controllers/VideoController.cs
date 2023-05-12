@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MVC.Models;
+using NuGet.ProjectModel;
 using System.Security.Claims;
+using System.Transactions;
 
 namespace MVC.Areas.Admin.Controllers
 {
@@ -48,6 +50,15 @@ namespace MVC.Areas.Admin.Controllers
             }
         }
 
+        [HttpGet]
+        public FileContentResult GetImage(int id)
+        {
+            var imageContent = _imageService.Get(id).Content;
+            var imageBytes = Convert.FromBase64String(imageContent);
+
+            return new FileContentResult(imageBytes, "application/octet-stream");
+        }
+
         public IActionResult CreateVideo()
         {
             try
@@ -59,11 +70,6 @@ namespace MVC.Areas.Admin.Controllers
                     {
                         Text = g.Name,
                         Value = g.Id.ToString()
-                    }),
-                    Images = _imageService.GetAll().Select(i => new SelectListItem
-                    {
-                        Text = i.Content?.Substring(i.Content.LastIndexOf('/') + 1),
-                        Value = i.Id.ToString()
                     }),
                     Tags = _tagService.GetAll().Select(t => new SelectListItem
                     {
@@ -89,13 +95,22 @@ namespace MVC.Areas.Admin.Controllers
 
             try
             {
-                _videoService.Create(newVideo.Video);
+                using(var scope = new TransactionScope())
+                {
+                    var createdImage = _imageService.Create(newVideo.Image);
+                    newVideo.Video.ImageId = createdImage.Id;
 
+                    _videoService.Create(newVideo.Video);
+
+                    scope.Complete();
+                }
+                
+                
                 return RedirectToAction("AllVideos");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Unable to create video");
+                _logger.LogError(ex, "Unable to create video or save image");
                 return RedirectToAction("Error", "Home", new { area = "Public" });
             }
         }
@@ -117,11 +132,6 @@ namespace MVC.Areas.Admin.Controllers
                     {
                         Text = g.Name,
                         Value = g.Id.ToString()
-                    }),
-                    Images = _imageService.GetAll().Select(i => new SelectListItem
-                    {
-                        Text = i.Content?.Substring(i.Content.LastIndexOf('/') + 1),
-                        Value = i.Id.ToString()
                     }),
                     Tags = _tagService.GetAll().Select(t => new SelectListItem
                     {
@@ -147,6 +157,11 @@ namespace MVC.Areas.Admin.Controllers
 
             try
             {
+                if(videoForEdit.Image != null)
+                {
+                    var updatedImage = _imageService.Update(videoForEdit.Video.ImageId ?? 0, videoForEdit.Image);
+                }
+
                 int id = videoForEdit.Video.Id ?? 0;
 
                 _videoService.Update(id, videoForEdit.Video);

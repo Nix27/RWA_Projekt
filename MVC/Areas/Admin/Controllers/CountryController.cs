@@ -15,11 +15,13 @@ namespace MVC.Areas.Admin.Controllers
             _logger = logger;
         }
 
-        public IActionResult AllCountries()
+        public IActionResult AllCountries(int page = 1)
         {
             try
             {
                 var allCountries = _countryService.GetAll();
+                ViewBag.CurrentPage = page;
+
                 return View(allCountries);
             }
             catch (Exception ex)

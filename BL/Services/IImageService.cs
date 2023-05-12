@@ -1,4 +1,5 @@
 ﻿using BL.DTO;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,9 @@ namespace BL.Services
     {
         ICollection<ImageDto> GetAll();
         ImageDto? Get(int id);
-        ImageDto Create(ImageDto image);
+        ImageDto Create(IFormFile image);
         ImageDto? Delete(int id);
+
+        ImageDto? Update(int id, IFormFile image);
     }
 }

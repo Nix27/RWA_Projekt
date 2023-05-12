@@ -1,6 +1,6 @@
 ﻿@model VideoVM
 
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     <div class="border-2 mt-4">
         <div class="row mb-2">
             <h2 class="text-primary">Create New Video</h2>
@@ -33,10 +33,8 @@
                 <span asp-validation-for="Video.GenreId" class="text-danger"></span>
             </div>
             <div class="mb-3 col-6">
-                <label asp-for="Video.ImageId"></label>
-                <select asp-for="Video.ImageId" asp-items="Model.Images" class="form-control border border-1 border-dark">
-                    <option disabled selected>--Select Image--</option>
-                </select>
+                <label asp-for="Image"></label>
+                <input type="file" id="image" name="image" accept="image/*" class="form-control border border-1 border-dark" />
             </div>
             <div class="mb-3 col-6">
                 <label asp-for="Video.Tags"></label>

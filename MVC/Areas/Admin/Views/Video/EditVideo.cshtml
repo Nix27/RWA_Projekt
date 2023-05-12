@@ -2,12 +2,13 @@
 
 <form method="post">
     <input asp-for="Video.Id" hidden />
+    <input asp-for="Video.ImageId" hidden />
     <div class="border-2 mt-4">
         <div class="row mb-2">
             <h2 class="text-primary">Edit Video</h2>
             <hr />
         </div>
-        <div class="row">
+        <div class="row col-8">
             <div class="mb-3 col-6">
                 <label asp-for="Video.Name"></label>
                 <input asp-for="Video.Name" class="form-control border border-1 border-dark" />
@@ -34,15 +35,12 @@
                 <span asp-validation-for="Video.GenreId" class="text-danger"></span>
             </div>
             <div class="mb-3 col-6">
-                <label asp-for="Video.ImageId"></label>
-                <select asp-for="Video.ImageId" asp-items="Model.Images" class="form-control border border-1 border-dark">
-                    <option disabled selected>--Select Image--</option>
-                </select>
+                <label asp-for="Image"></label>
+                <input type="file" id="Image" name="Image" accept="image/*" class="form-control border border-1 border-dark" />
             </div>
             <div class="mb-3 col-6">
                 <label asp-for="Video.Tags"></label>
-                <select asp-for="Video.Tags" asp-items="Model.Tags" class="form-control border border-1 border-dark">
-                </select>
+                <select asp-for="Video.Tags" asp-items="Model.Tags" class="form-control border border-1 border-dark"></select>
                 <span asp-validation-for="Video.Tags" class="text-danger"></span>
             </div>
         </div>

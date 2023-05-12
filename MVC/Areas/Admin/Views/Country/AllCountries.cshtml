@@ -1,9 +1,17 @@
 ﻿@model ICollection<CountryDto>
+@{
+    int currentPage = ViewBag.CurrentPage;
+    int countriesPerPage = 1;
+    var numberOfCountries = Model.Count();
+    var numberOfPages = (int)Math.Ceiling((double)numberOfCountries / countriesPerPage);
+
+    var countriesForPage = Model.Skip((currentPage - 1) * countriesPerPage).Take(countriesPerPage);
+}
 
 <div class="container p-2">
     <h2 class="text-primary">All Countries</h2>
 
-    <table class="table table-hover">
+    <table id="tblCountries" class="table table-hover">
         <thead>
             <tr>
                 <th class="lead">Name</th>
@@ -11,7 +19,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach(var country in Model)
+            @foreach(var country in countriesForPage)
             {
                 <tr>
                     <td>@country.Name</td>
@@ -20,4 +28,45 @@
             }
         </tbody>
     </table>
+
+    <ul class="pagination justify-content-end mt-2">
+        <li class="page-item">
+            <a class="page-link" href="#" data-page="previous">&laquo;</a>
+        </li>
+        <li class="page-item active">
+            <a class="page-link" href="#">@currentPage</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" data-page="next">&raquo;</a>
+        </li>
+    </ul>
 </div>
+
+@section Scripts{
+    <script>
+        let currentPage = @currentPage;
+        let lastPage = @numberOfPages;
+
+        $('.page-link').on('click', function () {
+            const clickedLink = $(this).data('page');
+            if(clickedLink === 'previous' && currentPage > 1){
+                currentPage--;
+            }
+
+            if(clickedLink === 'next' && currentPage < lastPage){
+                currentPage++;
+            }
+
+            $.ajax({
+                url: `AllCountries/${currentPage}`,
+                method: 'get',
+                success: function(data){
+                    $('table').load(data);
+                },
+                error: function(){
+                    console.log('error');
+                }
+            });
+        });
+    </script>
+}
