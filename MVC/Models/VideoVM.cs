@@ -29,5 +29,8 @@ namespace MVC.Models
 
         [ValidateNever]
         public string Genre { get; set; }
+
+        [ValidateNever]
+        public IEnumerable<string> TagsOfVideo { get; set; }
     }
 }

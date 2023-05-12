@@ -35,7 +35,7 @@ namespace MVC.Areas.Public.Controllers
                 var videosVm = allVideos.Select(v => new VideoVM
                 {
                     Video = v,
-                    ImageURL = _imageService.Get(v.ImageId ?? 0).Content
+                    ImageURL = Url.Action("GetImage", "Video", new { area = "Admin", id = v.ImageId })
                 });
 
                 return View(videosVm);
@@ -58,7 +58,7 @@ namespace MVC.Areas.Public.Controllers
                 VideoVM videoVm = new()
                 {
                     Video = requestedVideo,
-                    ImageURL = _imageService.Get(requestedVideo.ImageId ?? 0)?.Content,
+                    ImageURL = Url.Action("GetImage", "Video", new { area = "Admin", id = requestedVideo.ImageId }),
                     Genre = _genreService.Get(requestedVideo.GenreId).Name
                 };
 

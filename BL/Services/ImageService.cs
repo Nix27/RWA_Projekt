@@ -59,18 +59,6 @@ namespace BL.Services
             return ImageMapping.MapToDto(newImage);
         }
 
-        public ImageDto? Delete(int id)
-        {
-            var imageForDelete = _unitOfWork.Image.GetFirstOrDefault(i => i.Id == id);
-
-            if(imageForDelete == null) return null;
-
-            _unitOfWork.Image.Delete(imageForDelete);
-            _unitOfWork.Save();
-
-            return ImageMapping.MapToDto(imageForDelete);
-        }
-
         public ImageDto? Get(int id)
         {
             var requestedImage = _unitOfWork.Image.GetFirstOrDefault(i => i.Id == id);
@@ -78,13 +66,6 @@ namespace BL.Services
             if(requestedImage == null) return null;
 
             return ImageMapping.MapToDto(requestedImage);
-        }
-
-        public ICollection<ImageDto> GetAll()
-        {
-            var allImages = _unitOfWork.Image.GetAll();
-
-            return ImageMapping.MapToDto(allImages).ToList();
         }
 
         public ImageDto? Update(int id, IFormFile image)

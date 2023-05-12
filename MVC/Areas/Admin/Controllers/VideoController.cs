@@ -40,8 +40,19 @@ namespace MVC.Areas.Admin.Controllers
 
             try
             {
-                var allVideos = _videoService.GetAllForView();
-                return View(allVideos);
+                var allVideos = _videoService.GetAll();
+
+                var videosVm = allVideos.Select(v => new VideoVM
+                {
+                    Video = v,
+                    ImageURL = Url.Action("GetImage", new { id = v.ImageId }),
+                    Genre = _genreService.Get(v.GenreId).Name,
+                    TagsOfVideo = _tagService.GetAll()
+                                             .Where(t => v.Tags.Contains(t.Name))
+                                             .Select(t => t.Name)
+                });
+
+                return View(videosVm);
             }
             catch (Exception ex)
             {
@@ -133,6 +144,7 @@ namespace MVC.Areas.Admin.Controllers
                         Text = g.Name,
                         Value = g.Id.ToString()
                     }),
+                    ImageURL = Url.Action("GetImage", new { id = videoForEdit.ImageId }),
                     Tags = _tagService.GetAll().Select(t => new SelectListItem
                     {
                         Text = t.Name,
