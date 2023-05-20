@@ -1,5 +1,5 @@
 ﻿using BL.DTO;
-using DAL.Models;
+using BL.Models;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -17,7 +17,8 @@ namespace BL.Services
         UserDto? Update(int id, UserDto user);
         UserDto? Delete(int id);
         void ValidateEmail(ValidateEmilRequest request);
-        string GetToken(LoginRequest requestt);
+        string GetToken(LoginRequest request);
+        UserDto? GetConfirmedUser(LoginRequest request);
         void ChangePass(ChangePasswordRequest request);
     }
 }

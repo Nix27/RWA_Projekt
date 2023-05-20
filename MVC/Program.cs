@@ -2,10 +2,13 @@ using BL.Services;
 using DAL.ApplicationDbContext;
 using DAL.IRepositories;
 using DAL.Repositories;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using MVC.Mapping;
 using System.Text;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +20,11 @@ builder.Services.AddDbContext<AppDbContext>(options =>
         builder.Configuration.GetConnectionString("DefaultConnection")
     );
 });
+
+builder.Services.AddAutoMapper(
+    typeof(AutomapperProfile)
+);
+
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IGenreService, GenreService>();
 builder.Services.AddScoped<ITagService, TagService>();
@@ -26,22 +34,7 @@ builder.Services.AddScoped<INotificationService, NotificationService>();
 builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<ICountryService, CountryService>();
 
-builder.Services
-    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(o => {
-        var jwtKey = builder.Configuration["JWT:Key"];
-        var jwtKeyBytes = Encoding.UTF8.GetBytes(jwtKey);
-        o.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidIssuer = builder.Configuration["JWT:Issuer"],
-            ValidateAudience = true,
-            ValidAudience = builder.Configuration["JWT:Audience"],
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(jwtKeyBytes),
-            ValidateLifetime = true
-        };
-    });
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
 
 var app = builder.Build();
 

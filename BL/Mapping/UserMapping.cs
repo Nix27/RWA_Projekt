@@ -23,7 +23,8 @@ namespace BL.Mapping
                 Email = user.Email,
                 Phone = user.Phone,
                 CountryId = user.CountryId,
-                Country = user.Country?.Name
+                Country = user.Country?.Name,
+                Role = user.Role
             };
         }
 

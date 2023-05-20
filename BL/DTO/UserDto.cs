@@ -19,5 +19,6 @@ namespace BL.DTO
         [DisplayName("Country")]
         public int CountryId { get; set; }
         public string? Country { get; set; }
+        public string Role { get; set; }
     }
 }

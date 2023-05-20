@@ -1,6 +1,6 @@
 ﻿using BL.DTO;
+using BL.Models;
 using BL.Services;
-using DAL.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

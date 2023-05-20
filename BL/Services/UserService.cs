@@ -1,6 +1,7 @@
 ﻿using Azure.Core;
 using BL.DTO;
 using BL.Mapping;
+using BL.Models;
 using DAL.IRepositories;
 using DAL.Models;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
@@ -97,12 +98,11 @@ namespace BL.Services
             _unitOfWork.Save();
         }
 
-        private bool Authenticate(string email, string password)
+        private User? Authenticate(string email, string password)
         {
-            var user =_unitOfWork.UserRepo.GetFirstOrDefault(u => u.Email == email);
+            var user =_unitOfWork.UserRepo.GetFirstOrDefault(u => u.Email == email && u.IsConfirmed);
 
-            if (user == null) return false;
-            if(!user.IsConfirmed) return false;
+            if (user == null) return null;
 
             byte[] salt = Convert.FromBase64String(user.PwdSalt);
             byte[] hash = Convert.FromBase64String(user.PwdHash);
@@ -115,26 +115,19 @@ namespace BL.Services
                     iterationCount: 100000,
                     numBytesRequested: 256 / 8);
 
-            return hash.SequenceEqual(calcHash);
-        }
-
-        private string GetRole(string email)
-        {
-            return _unitOfWork.UserRepo.GetFirstOrDefault(u => u.Email == email).Role;
+            return hash.SequenceEqual(calcHash) ? user : null;
         }
 
         public string GetToken(LoginRequest request)
         {
-            var isAuthenticated = Authenticate(request.Email, request.Password);
+            var user = Authenticate(request.Email, request.Password);
 
-            if (!isAuthenticated)
+            if (user == null)
                 throw new Exception("Authentication failed");
-
-            var user = _unitOfWork.UserRepo.GetFirstOrDefault(u => u.Email == request.Email);
 
             var jwtKey = _configuration["Jwt:Key"];
             var jwtKeyBytes = Encoding.UTF8.GetBytes(jwtKey);
-            var role = GetRole(request.Email);
+            var role = user.Role;
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
@@ -159,11 +152,18 @@ namespace BL.Services
             return tokenString;
         }
 
+        public UserDto? GetConfirmedUser(LoginRequest request)
+        {
+            var confirmedUser = Authenticate(request.Email, request.Password);
+
+            return confirmedUser != null ? UserMapping.MapToDto(confirmedUser) : null;
+        }
+
         public void ChangePass(ChangePasswordRequest request)
         {
-            var isAuthenticated = Authenticate(request.Email, request.OldPassword);
+            var user = Authenticate(request.Email, request.OldPassword);
 
-            if (!isAuthenticated)
+            if (user == null)
                 throw new Exception("Authentication failed");
 
             byte[] salt = RandomNumberGenerator.GetBytes(128 / 8);
@@ -178,7 +178,6 @@ namespace BL.Services
                     numBytesRequested: 256 / 8);
             string b64Hash = Convert.ToBase64String(hash);
 
-            var user = _unitOfWork.UserRepo.GetFirstOrDefault(u => u.Email == request.Email);
             user.PwdSalt = b64Salt;
             user.PwdHash = b64Hash;
 

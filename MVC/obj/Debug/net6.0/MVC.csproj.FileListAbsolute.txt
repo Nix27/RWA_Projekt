@@ -303,3 +303,5 @@ C:\Users\Nix\Documents\RWA\Nikola_Zečić_Projekt\MVC\obj\Debug\net6.0\refint\MV
 C:\Users\Nix\Documents\RWA\Nikola_Zečić_Projekt\MVC\obj\Debug\net6.0\MVC.pdb
 C:\Users\Nix\Documents\RWA\Nikola_Zečić_Projekt\MVC\obj\Debug\net6.0\MVC.genruntimeconfig.cache
 C:\Users\Nix\Documents\RWA\Nikola_Zečić_Projekt\MVC\obj\Debug\net6.0\ref\MVC.dll
+C:\Users\Nix\Documents\RWA\Nikola_Zečić_Projekt\MVC\bin\Debug\net6.0\AutoMapper.dll
+C:\Users\Nix\Documents\RWA\Nikola_Zečić_Projekt\MVC\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

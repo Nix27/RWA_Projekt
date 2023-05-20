@@ -10,6 +10,7 @@ using System.Transactions;
 namespace MVC.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class VideoController : Controller
     {
         private readonly IVideoService _videoService;
@@ -34,10 +35,6 @@ namespace MVC.Areas.Admin.Controllers
 
         public IActionResult AllVideos()
         {
-            var claimsIdentity = (ClaimsIdentity)User.Identity;
-            var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var username = claimsIdentity.Name;
-
             try
             {
                 var allVideos = _videoService.GetAll();
@@ -62,6 +59,7 @@ namespace MVC.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public FileContentResult GetImage(int id)
         {
             var imageContent = _imageService.Get(id).Content;

@@ -1,4 +1,4 @@
-﻿@model LoginRequest
+﻿@model LoginRequestVM
 
 <form method="post">
     <div class="border-2 mt-4">
@@ -7,15 +7,14 @@
             <hr />
         </div>
         <div class="row">
+            <div asp-validation-summary="All" class="text-danger"></div>
             <div class="mb-3">
                 <label asp-for="Email"></label>
                 <input id="email" asp-for="Email" class="form-control border border-1 border-dark" />
-                <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="Password"></label>
                 <input id="pass" type="password" asp-for="Password" class="form-control border border-1 border-dark" />
-                <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <span id="warning" class="text-danger"></span>
             <div class="mb-3">
@@ -32,37 +31,4 @@
     @{
         <partial name="_ValidationScriptsPartial" />
     }
-
-        @*<script>
-            const forma = $('form')[0];
-
-            $(forma).on('submit', event => {
-                event.preventDefault();
-
-                const formData = new FormData(forma);
-                const token = $('input[name="__RequestVerificationToken"]').val();
-
-                $.ajax({
-                    //url: 'Public/PublicUser/LogIn',
-                    url: 'LogIn',
-                    headers: { 'RequestVerificationToken': token },
-                    type: 'Post',
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function(response){
-                        if(response.success === true){
-                            window.location.href = '../Home/Index';
-                            localStorage.setItem('username', response.username);
-                            localStorage.setItem('jwtToken', response.jwtToken);
-                        }else{
-                            $('#warning').text(response.message);
-                        }
-                    },
-                    error: function(){
-                        console.log('error')
-                    }
-                });
-            });
-        </script>*@
 }
