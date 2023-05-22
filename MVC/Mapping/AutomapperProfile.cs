@@ -9,6 +9,7 @@ namespace MVC.Mapping
         public AutomapperProfile()
         {
             CreateMap<LoginRequestVM, LoginRequest>();
+            CreateMap<ChangePasswordVM, ChangePasswordRequest>();
         }
     }
 }

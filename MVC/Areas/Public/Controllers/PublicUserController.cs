@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using MVC.Models;
 using System.Security.Claims;
 
@@ -84,7 +85,8 @@ namespace MVC.Areas.Public.Controllers
             {
                 if (!ModelState.IsValid) return View(loginRequest);
 
-                var user = _userService.GetConfirmedUser(_mapper.Map<LoginRequest>(loginRequest));
+                var request = _mapper.Map<LoginRequest>(loginRequest);
+                var user = _userService.GetConfirmedUser(request);
 
                 if (user == null) 
                 {
@@ -94,6 +96,7 @@ namespace MVC.Areas.Public.Controllers
 
                 var claims = new List<Claim>
                 {
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                     new Claim(ClaimTypes.Name, user.UserName),
                     new Claim(ClaimTypes.Role, user.Role)
                 };
@@ -110,6 +113,67 @@ namespace MVC.Areas.Public.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Authentication failed");
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
+        public IActionResult UserProfile(int id)
+        {
+            try
+            {
+                var user = _userService.Get(id);
+
+                if (user == null) return NotFound();
+
+                UserVM userVM = new UserVM()
+                {
+                    User = user
+                };
+
+                return View(userVM);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Unable to send user data to view");
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
+        public IActionResult ChangePassword(string email)
+        {
+            var claimsIdentity = User.Identity as ClaimsIdentity;
+            var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            ChangePasswordVM changePasswordVM = new()
+            {
+                Email = email,
+                UserId = int.Parse(userId)
+            };
+
+            return View(changePasswordVM);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ChangePassword(ChangePasswordVM changePasswordVM)
+        {
+            try
+            {
+                if(!ModelState.IsValid) return View(changePasswordVM);
+
+                var request = _mapper.Map<ChangePasswordRequest>(changePasswordVM);
+                _userService.ChangePass(request);
+
+                return RedirectToAction("UserProfile", new { id = changePasswordVM.UserId });
+            }
+            catch(InvalidOperationException)
+            {
+                ModelState.AddModelError("WrongData", "Wrong old password");
+                return View(changePasswordVM);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Unable to change password");
                 return RedirectToAction("Error", "Home");
             }
         }

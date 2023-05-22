@@ -1,0 +1,36 @@
+﻿@model UserVM
+
+<div class="container p-2">
+    <div class="mt-3 mb-3">
+        <h2 class="text-primary">My Profile</h2>
+        <hr />
+    </div>
+
+    <div class="row">
+        <div class="mb-3 col-6">
+            <label asp-for="User.UserName"></label>
+            <input asp-for="User.UserName" class="form-control border border-1 border-dark" disabled />
+        </div>
+        <div class="mb-3 col-6">
+            <label asp-for="User.FirstName"></label>
+            <input asp-for="User.FirstName" class="form-control border border-1 border-dark" disabled />
+        </div>
+        <div class="mb-3 col-6">
+            <label asp-for="User.LastName"></label>
+            <input asp-for="User.LastName" class="form-control border border-1 border-dark" disabled />
+        </div>
+        <div class="mb-3 col-6">
+            <label asp-for="User.Email"></label>
+            <input asp-for="User.Email" class="form-control border border-1 border-dark" disabled />
+        </div>
+        <div class="mb-3 col-6">
+            <label asp-for="User.Phone"></label>
+            <input asp-for="User.Phone" class="form-control border border-1 border-dark" disabled />
+        </div>
+        <div class="mb-3 col-6">
+            <label asp-for="User.Country"></label>
+            <input asp-for="User.Country" class="form-control border border-1 border-dark" disabled />
+        </div>
+    </div>
+    <a asp-area="Public" asp-controller="PublicUser" asp-action="ChangePassword" asp-route-email="@Model.User.Email" class="btn btn-primary mt-2" style="width: 300px">Change password</a>
+</div>

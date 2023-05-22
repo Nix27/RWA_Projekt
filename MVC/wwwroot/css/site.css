@@ -37,3 +37,20 @@ body {
         .home-card-image img:hover {
             transform: scale(1.3);
         }
+
+.btn-logout {
+    background-color: transparent;
+    color: grey;
+    border: 0;
+    font-size: 1.05em;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+    font-weight: bold;
+}
+
+    .btn-logout:hover{
+        color: white;
+    }
+
+.btn-submit {
+    width: 150px;
+}

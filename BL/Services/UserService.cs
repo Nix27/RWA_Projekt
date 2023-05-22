@@ -164,7 +164,7 @@ namespace BL.Services
             var user = Authenticate(request.Email, request.OldPassword);
 
             if (user == null)
-                throw new Exception("Authentication failed");
+                throw new InvalidOperationException("Authentication failed");
 
             byte[] salt = RandomNumberGenerator.GetBytes(128 / 8);
             string b64Salt = Convert.ToBase64String(salt);
