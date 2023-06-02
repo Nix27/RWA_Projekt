@@ -1,0 +1,60 @@
+﻿@model GenreVM
+
+<form method="post">
+    <div class="border-2 mt-4">
+        <div class="row mb-2">
+            <h2 class="text-primary">Add new genre</h2>
+            <hr />
+        </div>
+        <div class="row">
+            <div class="mb-3 col-6">
+                <label for="name">Name</label>
+                <input type="text" id="name" class="form-control border border-1 border-dark" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="mb-3 col-6">
+                <label for="description">Description</label>
+                <input type="text" id="description" class="form-control border border-1 border-dark" />
+            </div>
+        </div>
+        <button type="submit" class="btn btn-dark" style="width: 150px">Add</button>
+        <a asp-area="Admin" asp-controller="Genre" asp-action="AllGenres" class="btn btn-light" style="width: 150px">Back</a>
+    </div>
+</form>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+
+    <script>
+        $(() => {
+            $('form').on('submit', function(event){
+                event.preventDefault();
+
+                var name = $('#name').val();
+                var description = $('#description').val();
+
+                var dataFromForm = {
+                    name: name,
+                    description: description
+                };
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'CreateGenre',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    data: JSON.stringify(dataFromForm),
+                    success: function () {
+                        window.location.href = 'AllGenres';
+                    },
+                    error: function (data) {
+                        console.log("error", data);
+                    }
+                });
+            });
+        });
+    </script>
+}

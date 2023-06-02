@@ -28,7 +28,7 @@ namespace MVC.Areas.Admin.Controllers
             try
             {
                 if (size == 0)
-                    size = 1;
+                    size = 5;
 
                 var pagedCountries = _countryService.GetPagedCountries(page, size);
                 ViewData["page"] = page;

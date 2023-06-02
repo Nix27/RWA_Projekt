@@ -1,4 +1,5 @@
-﻿
+﻿@model ICollection<GenreVM>
+
 <div class="container p-2">
     <div class="row mt-3">
         <div class="col-6">
@@ -18,10 +19,63 @@
                 <th></th>
             </tr>
         </thead>
-        <tbody></tbody>
+        <tbody id="genres-table-body"></tbody>
     </table>
 </div>
 
 @section Scripts{
-    <script src="~/js/deleteWarning.js"></script>
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        getData();
+
+        function DeleteWarning(url, table) {
+            Swal.fire({
+                title: 'Are you sure you want delete?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Delete'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: url,
+                        type: 'Delete',
+                        success: function (data) {
+                            if (data.success) {
+                                Swal.fire(
+                                    'Deleted!',
+                                    'Deleted successfully',
+                                    'success'
+                                );
+
+                                getData();
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: 'Unable to delete!'
+                                })
+                            }
+                        }
+                    })
+                }
+            })
+        }
+
+        function getData() {
+            $.ajax({
+                type: 'GET',
+                url: 'GenreTableBodyPartial',
+                success: function (data) {
+                    $('#genres-table-body').html(data);
+                },
+                error: function (data) {
+                    console.log('error', data);
+                }
+            });
+        }
+    </script>
 }

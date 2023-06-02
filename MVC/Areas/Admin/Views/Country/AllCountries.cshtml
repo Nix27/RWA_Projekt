@@ -29,11 +29,7 @@
         <tfoot>
             <tr>
                 <td colspan="3">
-                    @{
-                        var previousDisabled = page <= 0 ? "disabled" : "";
-                        var nextDisabled = page >= pages ? "disabled" : "";
-                    }
-
+                    <input id="hiddenData" data-pages="@pages" data-size="@size" hidden />
                     <div class="d-flex justify-content-end">
                         <a asp-action="AllCountries" asp-route-page="0" asp-route-size="@size" data-page="0" class="first-btn btn btn-primary mx-2">First</a>
                         <a asp-action="AllCountries" asp-route-page="@(page)" asp-route-size="@size" data-page="0" class="previous-btn btn btn-primary mx-2"><</a>
@@ -55,78 +51,5 @@
 
 @section Scripts{
     <script src="~/js/deleteWarning.js"></script>
-
-    <script>
-        $('.pager-btn').on('click', function (event) {
-            event.preventDefault();
-
-            var page = $(this).data('page');
-            getData(page);
-        });
-
-        $('.first-btn').on('click', function (event) {
-            event.preventDefault();
-
-            getData(0);
-        });
-
-        $('.last-btn').on('click', function (event) {
-            event.preventDefault();
-
-            getData(@pages);
-        });
-
-        $('.previous-btn').on('click', function (event) {
-            event.preventDefault();
-
-            var page = $(this).data('page');
-            console.log(page);
-
-            if(page >= 0){
-                getData(page);
-                $(this).data('page', page - 1);
-                $('.next-btn').data('page', $(this).data('page') + 1);
-                console.log($(this).data('page'));
-            }
-        });
-
-        $('.next-btn').on('click', function (event) {
-            event.preventDefault();
-
-            var page = $(this).data('page');
-            console.log(page);
-
-            if(page <= @pages){
-                getData(page);
-                $(this).data('page', page + 1);
-                $('.previous-btn').data('page', $(this).data('page') - 1);
-                console.log($(this).data('page'));
-            }
-        });
-
-        function getData(page) {
-            var ajaxData = {
-                page: page,
-                size: @size
-            };
-
-            $.ajax({
-                type: 'GET',
-                url: 'CountryTableBodyPartial',
-                data: ajaxData,
-                success: function (data) {
-                    $('#country-table-body').html(data);
-
-                    $('.pager-btn').removeClass('btn-dark');
-                    $('.pager-btn').addClass('btn-light');
-
-                    $('.pager-btn[data-page=' + page + ']').removeClass('btn-light');
-                    $('.pager-btn[data-page=' + page + ']').addClass('btn-dark');
-                },
-                error: function (data) {
-                    console.log('error', data);
-                }
-            });
-        }
-    </script>
+    <script src="~/js/pagination.js"></script>
 }

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "8w5E45WYXt1Y/cBz4kOK2eNxNbitAOyA9SXIdQPKlNQ=",
+  "Hash": "Wd2AiNoQr/QBWfUA/sx6ClqizvTUsRn8j+J3uaFECIs=",
   "Source": "MVC",
   "BasePath": "_content/MVC",
   "Mode": "Default",
@@ -134,6 +134,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\deleteWarning.js"
+    },
+    {
+      "Identity": "C:\\Users\\Nix\\Documents\\RWA\\Nikola_Zečić_Projekt\\MVC\\wwwroot\\js\\pagination.js",
+      "SourceId": "MVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Nix\\Documents\\RWA\\Nikola_Zečić_Projekt\\MVC\\wwwroot\\",
+      "BasePath": "_content/MVC",
+      "RelativePath": "js/pagination.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\pagination.js"
     },
     {
       "Identity": "C:\\Users\\Nix\\Documents\\RWA\\Nikola_Zečić_Projekt\\MVC\\wwwroot\\js\\site.js",

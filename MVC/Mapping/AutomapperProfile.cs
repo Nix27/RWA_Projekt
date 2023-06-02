@@ -13,6 +13,8 @@ namespace MVC.Mapping
             CreateMap<ChangePasswordVM, ChangePasswordRequest>();
             CreateMap<CountryDto, CountryVM>();
             CreateMap<CountryVM, CountryDto>();
+            CreateMap<GenreDto, GenreVM>();
+            CreateMap<GenreVM, GenreDto>();
         }
     }
 }
