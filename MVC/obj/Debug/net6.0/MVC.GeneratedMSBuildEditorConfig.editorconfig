@@ -20,6 +20,18 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ291bnRyeVxBbGxDb3VudHJpZXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Nix/Documents/RWA/Nikola_Zečić_Projekt/MVC/Areas/Admin/Views/Country/CreateCountry.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ291bnRyeVxDcmVhdGVDb3VudHJ5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Nix/Documents/RWA/Nikola_Zečić_Projekt/MVC/Areas/Admin/Views/Country/EditCountry.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ291bnRyeVxFZGl0Q291bnRyeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Nix/Documents/RWA/Nikola_Zečić_Projekt/MVC/Areas/Admin/Views/Country/_CountryTableBodyPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ291bnRyeVxfQ291bnRyeVRhYmxlQm9keVBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Nix/Documents/RWA/Nikola_Zečić_Projekt/MVC/Areas/Admin/Views/Genre/AllGenres.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcR2VucmVcQWxsR2VucmVzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

@@ -1,0 +1,15 @@
+﻿@model IEnumerable<CountryVM>
+
+@foreach (var country in Model)
+{
+    <tr>
+        <td>@country.Name</td>
+        <td>@country.Code</td>
+        <td class="text-end">
+            <div class="w-50 btn-group" role="group">
+                <a asp-area="Admin" asp-controller="Country" asp-action="EditCountry" asp-route-id="@country.Id" class="btn btn-success mx-2"><i class="bi bi-pencil-square"></i></a>
+                <a onclick="DeleteWarning('/Admin/Country/DeleteCountry/'+@country.Id, ' #tblCountries')" class="btn btn-danger mx-2"><i class="bi bi-trash3"></i></a>
+            </div>
+        </td>
+    </tr>
+}

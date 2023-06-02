@@ -14,7 +14,6 @@ namespace DAL.Models
         [Required(ErrorMessage = "Name is required ")]
         public string Name { get; set; }
         [Required(ErrorMessage = "Code is required")]
-        [StringLength(3, MinimumLength = 3, ErrorMessage = "Country code must have 3 characters")]
         public string Code { get; set; }
         public ICollection<User> Users { get; set; }
     }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BL.DTO;
 using BL.Models;
 using MVC.Models;
 
@@ -10,6 +11,8 @@ namespace MVC.Mapping
         {
             CreateMap<LoginRequestVM, LoginRequest>();
             CreateMap<ChangePasswordVM, ChangePasswordRequest>();
+            CreateMap<CountryDto, CountryVM>();
+            CreateMap<CountryVM, CountryDto>();
         }
     }
 }
