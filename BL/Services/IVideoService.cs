@@ -12,6 +12,8 @@ namespace BL.Services
     {
         ICollection<VideoDto> GetAll();
         ICollection<Video> GetAllForView();
+        IEnumerable<VideoDto> GetPagedVideos(int page, int size);
+        int GetNumberOfVideos();
         VideoDto? Get(int id);
         VideoDto Create(VideoDto video);
         VideoDto? Update(int id, VideoDto video);

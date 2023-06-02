@@ -1,5 +1,11 @@
 ﻿@model IEnumerable<VideoVM>
 
+@{
+    var page = (int)ViewData["page"];
+    var size = (int)ViewData["size"];
+    var pages = (int)ViewData["pages"] - 1;
+}
+
 <div class="container p-2">
     <div class="row mt-3">
         <div class="col-6">
@@ -24,51 +30,33 @@
                 <th></th>
             </tr>
         </thead>
-        <tbody id="tblBody">
-            @foreach (var videoVm in Model)
-            {
-                <tr>
-                    <td>
-                        <img src="@videoVm.ImageURL" alt="Video image" style="width: 70px; height: 70px" />
-                    </td>
-                    <td>@videoVm.Video.Name</td>
-                    <td>@videoVm.Video.Description</td>
-                    <td>@videoVm.Video.TotalSeconds</td>
-                    <td>@videoVm.Video.StreamingURL</td>
-                    <td>@videoVm.Genre</td>
-                    <td>
-                        @foreach (var tagOfVideo in videoVm.TagsOfVideo)
-                        {
-                            <text>@tagOfVideo </text>
-                        }
-                    </td>
-                    <td>
-                        <div class="w-75 btn-group" role="group">
-                            <a asp-area="Admin" asp-controller="Video" asp-action="EditVideo" asp-route-id="@videoVm.Video.Id" class="btn btn-success mx-2"><i class="bi bi-pencil-square"></i></a>
-                            <a onclick="DeleteWarning('/Admin/Video/DeleteVideo/'+@videoVm.Video.Id, ' #tblVideos')" class="btn btn-danger mx-2"><i class="bi bi-trash3"></i></a>
-                        </div>
-                    </td>
-                </tr>
-            }
+        <tbody id="table-body">
+            <partial name="_VideoTableBodyPartial" />
         </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="8">
+                    <input id="hiddenData" data-pages="@pages" data-size="@size" data-url="VideoTableBodyPartial" hidden />
+                    <div class="d-flex justify-content-end">
+                        <a asp-action="AllCountries" asp-route-page="0" asp-route-size="@size" data-page="0" class="first-btn btn btn-primary mx-2">First</a>
+                        <a asp-action="AllCountries" asp-route-page="@(page)" asp-route-size="@size" data-page="0" class="previous-btn btn btn-primary mx-2"><</a>
+
+                        @for (int i = 0; i <= pages; i++)
+                        {
+                            var btnClass = page == i ? "btn-dark" : "btn-light";
+                            <a asp-action="AllCountries" asp-route-page="@i" asp-route-size="@size" data-page="@i" class="pager-btn btn @btnClass">@(i + 1)</a>
+                        }
+
+                        <a asp-action="AllCountries" asp-route-page="@(page)" asp-route-size="@size" data-page="1" class="next-btn btn btn-primary mx-2">></a>
+                        <a asp-action="AllCountries" asp-route-page="@pages" asp-route-size="@size" data-page="@pages" class="last-btn btn btn-primary mx-2">Last</a>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
     </table>
-    <div class="row mt-3">
-        <div class="justify-content-end">
-            <ul class="pagination justify-content-end">
-                <li>
-                    <a href="#" class="page-link" data-page="previous">Previous</a>
-                </li>
-                <li class="pt-2">
-                    <span id="current-page">1</span>
-                </li>
-                <li>
-                    <a href="#" class="page-link" data-page="next">Next</a>
-                </li>
-            </ul>
-        </div>
-    </div>
 </div>
 
 @section Scripts{
     <script src="~/js/deleteWarning.js"></script>
+    <script src="~/js/pagination.js"></script>
 }

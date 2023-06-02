@@ -1,11 +1,12 @@
 ﻿let pages = $('#hiddenData').data('pages');
 let size = $('#hiddenData').data('size');
+let url = $('#hiddenData').data('url');
 
 $('.pager-btn').on('click', function (event) {
     event.preventDefault();
 
     var page = $(this).data('page');
-    getData(page, size);
+    getData(page, size, url);
 
     $('.next-btn').data('page', $(this).data('page') + 1);
     $('.previous-btn').data('page', $(this).data('page') - 1);
@@ -14,7 +15,7 @@ $('.pager-btn').on('click', function (event) {
 $('.first-btn').on('click', function (event) {
     event.preventDefault();
 
-    getData(0, size);
+    getData(0, size, url);
 
     $('.next-btn').data('page', $(this).data('page') + 1);
     $('.previous-btn').data('page', $(this).data('page') - 1);
@@ -23,7 +24,7 @@ $('.first-btn').on('click', function (event) {
 $('.last-btn').on('click', function (event) {
     event.preventDefault();
 
-    getData(pages, size);
+    getData(pages, size, url);
 
     $('.next-btn').data('page', $(this).data('page') + 1);
     $('.previous-btn').data('page', $(this).data('page') - 1);
@@ -33,13 +34,11 @@ $('.previous-btn').on('click', function (event) {
     event.preventDefault();
 
     var page = $(this).data('page');
-    console.log(page);
 
     if (page >= 0) {
-        getData(page, size);
+        getData(page, size, url);
         $(this).data('page', page - 1);
         $('.next-btn').data('page', $(this).data('page') + 2);
-        console.log($(this).data('page'));
     }
 });
 
@@ -47,17 +46,15 @@ $('.next-btn').on('click', function (event) {
     event.preventDefault();
 
     var page = $(this).data('page');
-    console.log(page);
 
     if (page <= pages) {
-        getData(page, size);
+        getData(page, size, url);
         $(this).data('page', page + 1);
         $('.previous-btn').data('page', $(this).data('page') - 2);
-        console.log($(this).data('page'));
     }
 });
 
-function getData(page, size) {
+function getData(page, size, url) {
     var ajaxData = {
         page: page,
         size: size
@@ -65,10 +62,10 @@ function getData(page, size) {
 
     $.ajax({
         type: 'GET',
-        url: 'CountryTableBodyPartial',
+        url: url,
         data: ajaxData,
         success: function (data) {
-            $('#country-table-body').html(data);
+            $('#table-body').html(data);
 
             $('.pager-btn').removeClass('btn-dark');
             $('.pager-btn').addClass('btn-light');

@@ -125,5 +125,16 @@ namespace BL.Services
         {
             return _unitOfWork.Video.GetAll(includeProperties: "Genre,Image,VideoTags.Tag").ToList();
         }
+
+        public IEnumerable<VideoDto> GetPagedVideos(int page, int size)
+        {
+            var allVideos = _unitOfWork.Video.GetAll(includeProperties: "Image,VideoTags.Tag");
+
+            var pagedVideos = allVideos.Skip(page * size).Take(size);
+
+            return VideoMapping.MapToDto(pagedVideos);
+        }
+
+        public int GetNumberOfVideos() => _unitOfWork.Video.GetAll().Count();
     }
 }

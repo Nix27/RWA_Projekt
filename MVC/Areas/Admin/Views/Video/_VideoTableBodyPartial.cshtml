@@ -1,0 +1,37 @@
+﻿@model IEnumerable<VideoVM>
+
+@foreach (var videoVm in Model)
+{
+    <tr>
+        <td>
+            <img src="@videoVm.ImageURL" alt="Video image" style="width: 70px; height: 70px" />
+        </td>
+        <td>@videoVm.Video.Name</td>
+        <td>
+            @{
+                var description = videoVm.Video.Description.Length <= 30 ? videoVm.Video.Description : videoVm.Video.Description.Substring(0, 30) + "...";
+            }
+            @description
+        </td>
+        <td>@videoVm.Video.TotalSeconds</td>
+        <td>
+            @{
+                var streamingURL = videoVm.Video.StreamingURL.Length <= 30 ? videoVm.Video.StreamingURL : videoVm.Video.StreamingURL.Substring(0, 30) + "...";
+            }
+            @streamingURL
+        </td>
+        <td>@videoVm.Genre</td>
+        <td>
+            @foreach (var tagOfVideo in videoVm.TagsOfVideo)
+            {
+                <text>@tagOfVideo </text>
+            }
+        </td>
+        <td>
+            <div class="w-75 btn-group" role="group">
+                <a asp-area="Admin" asp-controller="Video" asp-action="EditVideo" asp-route-id="@videoVm.Video.Id" class="btn btn-success mx-2"><i class="bi bi-pencil-square"></i></a>
+                <a onclick="DeleteWarning('/Admin/Video/DeleteVideo/'+@videoVm.Video.Id, ' #tblVideos')" class="btn btn-danger mx-2"><i class="bi bi-trash3"></i></a>
+            </div>
+        </td>
+    </tr>
+}

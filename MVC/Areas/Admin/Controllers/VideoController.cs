@@ -33,13 +33,19 @@ namespace MVC.Areas.Admin.Controllers
             _logger = logger;
         }
 
-        public IActionResult AllVideos()
+        public IActionResult AllVideos(int page, int size)
         {
             try
             {
-                var allVideos = _videoService.GetAll();
+                if (size == 0)
+                    size = 5;
 
-                var videosVm = allVideos.Select(v => new VideoVM
+                var pagedVideos = _videoService.GetPagedVideos(page, size);
+                ViewData["page"] = page;
+                ViewData["size"] = size;
+                ViewData["pages"] = (int)Math.Ceiling((double)_videoService.GetNumberOfVideos() / size);
+
+                var videosVm = pagedVideos.Select(v => new VideoVM
                 {
                     Video = v,
                     ImageURL = Url.Action("GetImage", new { id = v.ImageId }),
@@ -50,6 +56,37 @@ namespace MVC.Areas.Admin.Controllers
                 });
 
                 return View(videosVm);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Unable to get videos");
+                return RedirectToAction("Error", "Home", new { area = "Public" });
+            }
+        }
+
+        public IActionResult VideoTableBodyPartial(int page, int size)
+        {
+            try
+            {
+                if (size == 0)
+                    size = 5;
+
+                var pagedVideos = _videoService.GetPagedVideos(page, size);
+                ViewData["page"] = page;
+                ViewData["size"] = size;
+                ViewData["pages"] = (int)Math.Ceiling((double)_videoService.GetNumberOfVideos() / size);
+
+                var videosVm = pagedVideos.Select(v => new VideoVM
+                {
+                    Video = v,
+                    ImageURL = Url.Action("GetImage", new { id = v.ImageId }),
+                    Genre = _genreService.Get(v.GenreId).Name,
+                    TagsOfVideo = _tagService.GetAll()
+                                             .Where(t => v.Tags.Contains(t.Name))
+                                             .Select(t => t.Name)
+                });
+
+                return PartialView("_VideoTableBodyPartial", videosVm);
             }
             catch (Exception ex)
             {

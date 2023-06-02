@@ -23,13 +23,13 @@
                 <th></th>
             </tr>
         </thead>
-        <tbody id="country-table-body">
+        <tbody id="table-body">
             <partial name="_CountryTableBodyPartial" />
         </tbody>
         <tfoot>
             <tr>
                 <td colspan="3">
-                    <input id="hiddenData" data-pages="@pages" data-size="@size" hidden />
+                    <input id="hiddenData" data-pages="@pages" data-size="@size" data-url="CountryTableBodyPartial" hidden />
                     <div class="d-flex justify-content-end">
                         <a asp-action="AllCountries" asp-route-page="0" asp-route-size="@size" data-page="0" class="first-btn btn btn-primary mx-2">First</a>
                         <a asp-action="AllCountries" asp-route-page="@(page)" asp-route-size="@size" data-page="0" class="previous-btn btn btn-primary mx-2"><</a>

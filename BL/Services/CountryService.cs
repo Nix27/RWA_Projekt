@@ -31,7 +31,7 @@ namespace BL.Services
         {
             var allCountries = _unitOfWork.Country.GetAll();
 
-            var pagedCountries = allCountries.Skip(page * size).Take(size).ToList();
+            var pagedCountries = allCountries.Skip(page * size).Take(size);
 
             return CountryMapping.MapToDto(pagedCountries);
         }
