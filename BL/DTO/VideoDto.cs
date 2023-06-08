@@ -17,6 +17,7 @@ namespace BL.DTO
         public string? StreamingURL { get; set; }
         [DisplayName("Genre")]
         public int GenreId { get; set; }
+        public string? Genre { get; set; }
         [DisplayName("Image")]
         public int? ImageId { get; set; }
         public List<string> Tags { get; set; }

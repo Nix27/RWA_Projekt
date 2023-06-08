@@ -17,6 +17,20 @@
     </div>
     <br />
 
+    <div class="d-flex justify-content-between">
+        <div class="d-flex">
+            <label for="filterBy" class="mx-3 w-100 pt-1">Filter by:</label>
+            <select id="filterBy" class="form-select border border-1 border-dark pt-1 h-75">
+                <option value="none" selected>None</option>
+                <option value="name">Name</option>
+                <option value="genre">Genre</option>
+            </select>
+        </div>
+        <div>
+            <input type="text" id="filter" class="form-control border border-1 border-dark h-75" />
+        </div>
+    </div>
+
     <table id="tblVideos" class="table table-bordered table-striped" style="width: 100%">
         <thead>
             <tr>
@@ -30,9 +44,7 @@
                 <th></th>
             </tr>
         </thead>
-        <tbody id="table-body">
-            <partial name="_VideoTableBodyPartial" />
-        </tbody>
+        <tbody id="table-body"></tbody>
         <tfoot>
             <tr>
                 <td colspan="8">
@@ -58,5 +70,5 @@
 
 @section Scripts{
     <script src="~/js/deleteWarning.js"></script>
-    <script src="~/js/pagination.js"></script>
+    <script src="~/js/pagination.js" asp-append-version="true"></script>
 }

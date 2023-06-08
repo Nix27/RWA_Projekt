@@ -22,6 +22,7 @@ namespace BL.Mapping
                 TotalSeconds = video.TotalSeconds,
                 StreamingURL = video.StreamingURL,
                 GenreId = video.GenreId,
+                Genre = video.Genre?.Name,
                 ImageId = video.ImageId,
                 Tags = video.VideoTags.Select(vt => vt.Tag.Name).ToList()
             };

@@ -128,11 +128,29 @@ namespace BL.Services
 
         public IEnumerable<VideoDto> GetPagedVideos(int page, int size)
         {
-            var allVideos = _unitOfWork.Video.GetAll(includeProperties: "Image,VideoTags.Tag");
+            var allVideos = _unitOfWork.Video.GetAll(includeProperties: "Genre,Image,VideoTags.Tag");
 
             var pagedVideos = allVideos.Skip(page * size).Take(size);
 
             return VideoMapping.MapToDto(pagedVideos);
+        }
+
+        public IEnumerable<VideoDto> GetFilteredVideos(IEnumerable<VideoDto> videos, string? filterBy, string? filter)
+        {
+            filter = filter?.ToLower();
+
+            if(String.Compare(filterBy, "name", true) == 0)
+            {
+                if (filter != null)
+                    videos = videos.Where(v => v.Name.ToLower().Contains(filter));
+            }
+            else if(String.Compare(filterBy, "genre", true) == 0)
+            {
+                if (filter != null)
+                    videos = videos.Where(v => v.Genre.ToLower().Contains(filter));
+            }
+
+            return videos;
         }
 
         public int GetNumberOfVideos() => _unitOfWork.Video.GetAll().Count();

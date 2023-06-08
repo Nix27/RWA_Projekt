@@ -13,6 +13,7 @@ namespace BL.Services
         ICollection<VideoDto> GetAll();
         ICollection<Video> GetAllForView();
         IEnumerable<VideoDto> GetPagedVideos(int page, int size);
+        IEnumerable<VideoDto> GetFilteredVideos(IEnumerable<VideoDto> videos, string? filterBy, string? filter);
         int GetNumberOfVideos();
         VideoDto? Get(int id);
         VideoDto Create(VideoDto video);

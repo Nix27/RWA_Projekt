@@ -33,7 +33,7 @@ namespace MVC.Areas.Admin.Controllers
             _logger = logger;
         }
 
-        public IActionResult AllVideos(int page, int size)
+        public IActionResult AllVideos(int page, int size, string filterBy, string filter)
         {
             try
             {
@@ -44,6 +44,11 @@ namespace MVC.Areas.Admin.Controllers
                 ViewData["page"] = page;
                 ViewData["size"] = size;
                 ViewData["pages"] = (int)Math.Ceiling((double)_videoService.GetNumberOfVideos() / size);
+
+                if(filterBy != "none" && filter != null)
+                {
+                    pagedVideos = _videoService.GetFilteredVideos(pagedVideos, filterBy, filter);
+                }
 
                 var videosVm = pagedVideos.Select(v => new VideoVM
                 {
@@ -64,7 +69,7 @@ namespace MVC.Areas.Admin.Controllers
             }
         }
 
-        public IActionResult VideoTableBodyPartial(int page, int size)
+        public IActionResult VideoTableBodyPartial(int page, int size, string filterBy, string filter)
         {
             try
             {
@@ -75,6 +80,11 @@ namespace MVC.Areas.Admin.Controllers
                 ViewData["page"] = page;
                 ViewData["size"] = size;
                 ViewData["pages"] = (int)Math.Ceiling((double)_videoService.GetNumberOfVideos() / size);
+
+                if (filterBy != "none" && filter != null)
+                {
+                    pagedVideos = _videoService.GetFilteredVideos(pagedVideos, filterBy, filter);
+                }
 
                 var videosVm = pagedVideos.Select(v => new VideoVM
                 {
