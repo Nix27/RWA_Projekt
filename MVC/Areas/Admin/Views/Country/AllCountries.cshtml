@@ -5,6 +5,8 @@
     var pages = (int)ViewData["pages"] - 1;
 }
 
+<input id="hiddenData" data-pages="@pages" data-size="@size" data-url="CountryTableBodyPartial" hidden />
+
 <div class="container p-2 mt-4">
     <div class="row">
         <div class="col-6">
@@ -29,7 +31,6 @@
         <tfoot>
             <tr>
                 <td colspan="3">
-                    <input id="hiddenData" data-pages="@pages" data-size="@size" data-url="CountryTableBodyPartial" hidden />
                     <div class="d-flex justify-content-end">
                         <a asp-action="AllCountries" asp-route-page="0" asp-route-size="@size" data-page="0" class="first-btn btn btn-primary mx-2">First</a>
                         <a asp-action="AllCountries" asp-route-page="@(page)" asp-route-size="@size" data-page="0" class="previous-btn btn btn-primary mx-2"><</a>

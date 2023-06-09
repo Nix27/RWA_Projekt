@@ -31,7 +31,7 @@ namespace MVC.Areas.Public.Controllers
             try
             {
                 if (size == 0)
-                    size = 1;
+                    size = 5;
 
                 var pagedVideos = _videoService.GetPagedVideos(page, size);
                 ViewData["page"] = page;
@@ -58,12 +58,12 @@ namespace MVC.Areas.Public.Controllers
             }
         }
 
-        public IActionResult HomeVideoTableBodyPartial(int page, int size, string? filterBy, string? filter)
+        public IActionResult HomeVideosPartial(int page, int size, string? filterBy, string? filter)
         {
             try
             {
                 if (size == 0)
-                    size = 1;
+                    size = 5;
 
                 var pagedVideos = _videoService.GetPagedVideos(page, size);
                 ViewData["page"] = page;

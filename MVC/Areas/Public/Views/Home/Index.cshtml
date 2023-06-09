@@ -6,6 +6,8 @@
     var pages = (int)ViewData["pages"] - 1;
 }
 
+<input id="hiddenData" data-pages="@pages" data-size="@size" data-url="Public/Home/HomeVideosPartial" hidden />
+
 <h2 class="text-primary">Videos</h2>
 
 <div class="d-flex justify-content-end">
@@ -14,7 +16,7 @@
     </div>
 </div>
 
-<div id="videos" class="row pb-2">
+<div id="table-body" class="row pb-2">
     <partial name="_HomeVideosPartial" />
 </div>
 
@@ -40,7 +42,7 @@
             let page = $('.pager-btn.btn-dark').data('page');
             let filter = $('#filter').val();
 
-            getData(page, size, 'HomeVideoTableBodyPartial', 'name', filter);
+            getData(page, size, 'Public/Home/HomeVideosPartial', 'name', filter);
         });
 
         function getData(page, size, url, filterBy, filter) {
@@ -56,8 +58,7 @@
                 url: url,
                 data: ajaxData,
                 success: function (data) {
-                    $('#videos').empty();
-                    $('#videos').append(data.toString());
+                    $('#table-body').html(data);
 
                     $('.pager-btn').removeClass('btn-dark');
                     $('.pager-btn').addClass('btn-light');

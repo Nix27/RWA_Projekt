@@ -53,28 +53,3 @@ $('.next-btn').on('click', function (event) {
         $('.previous-btn').data('page', $(this).data('page') - 2);
     }
 });
-
-function getData(page, size) {
-    let ajaxData = {
-        page: page,
-        size: size
-    };
-
-    $.ajax({
-        type: 'GET',
-        url: url,
-        data: ajaxData,
-        success: function (data) {
-            $('#table-body').html(data);
-
-            $('.pager-btn').removeClass('btn-dark');
-            $('.pager-btn').addClass('btn-light');
-
-            $('.pager-btn[data-page=' + page + ']').removeClass('btn-light');
-            $('.pager-btn[data-page=' + page + ']').addClass('btn-dark');
-        },
-        error: function (data) {
-            console.log('error', data);
-        }
-    });
-}
