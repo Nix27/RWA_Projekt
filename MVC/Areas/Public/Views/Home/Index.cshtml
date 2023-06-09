@@ -4,6 +4,8 @@
     var page = (int)ViewData["page"];
     var size = (int)ViewData["size"];
     var pages = (int)ViewData["pages"] - 1;
+
+    ViewData["action"] = "Index";
 }
 
 <input id="hiddenData" data-pages="@pages" data-size="@size" data-url="Public/Home/HomeVideosPartial" hidden />
@@ -16,36 +18,24 @@
     </div>
 </div>
 
-<div id="table-body" class="row pb-2">
+<div id="content" class="row pb-2">
     <partial name="_HomeVideosPartial" />
 </div>
 
-<div class="d-flex justify-content-end">
-    <a asp-action="Index" asp-route-page="0" asp-route-size="@size" data-page="0" class="first-btn btn btn-primary mx-2">First</a>
-    <a asp-action="Index" asp-route-page="@(page)" asp-route-size="@size" data-page="0" class="previous-btn btn btn-primary mx-2"><</a>
-
-    @for (int i = 0; i <= pages; i++)
-    {
-        var btnClass = page == i ? "btn-dark" : "btn-light";
-        <a asp-action="Index" asp-route-page="@i" asp-route-size="@size" data-page="@i" class="pager-btn btn @btnClass">@(i + 1)</a>
-    }
-
-    <a asp-action="Index" asp-route-page="@(page)" asp-route-size="@size" data-page="1" class="next-btn btn btn-primary mx-2">></a>
-    <a asp-action="Index" asp-route-page="@pages" asp-route-size="@size" data-page="@pages" class="last-btn btn btn-primary mx-2">Last</a>
-</div>
+@await Component.InvokeAsync("Pagination");
 
 @section Scripts{
-    <script src="~/js/pagination.js"></script>
+    <script src="~/js/pagination.js" asp-append-version="true"></script>
 
     <script>
         $('#filter').on('keyup', function () {
             let page = $('.pager-btn.btn-dark').data('page');
             let filter = $('#filter').val();
 
-            getData(page, size, 'Public/Home/HomeVideosPartial', 'name', filter);
+            getFilteredData(page, size, 'Public/Home/HomeVideosPartial', 'name', filter);
         });
 
-        function getData(page, size, url, filterBy, filter) {
+        function getFilteredData(page, size, url, filterBy, filter) {
             let ajaxData = {
                 page: page,
                 size: size,
@@ -58,7 +48,7 @@
                 url: url,
                 data: ajaxData,
                 success: function (data) {
-                    $('#table-body').html(data);
+                    $('#content').html(data);
 
                     $('.pager-btn').removeClass('btn-dark');
                     $('.pager-btn').addClass('btn-light');

@@ -1,6 +1,8 @@
-﻿using BL.DTO;
+﻿using AutoMapper;
+using BL.DTO;
 using BL.Services;
 using Microsoft.AspNetCore.Mvc;
+using MVC.Models;
 using System.Security.Cryptography.Xml;
 
 namespace MVC.Areas.Admin.Controllers
@@ -10,11 +12,16 @@ namespace MVC.Areas.Admin.Controllers
     {
         private readonly ITagService _tagService;
         private readonly ILogger<TagController> _logger;
+        private readonly IMapper _mapper;
 
-        public TagController(ITagService tagService, ILogger<TagController> logger)
+        public TagController(
+            ITagService tagService, 
+            ILogger<TagController> logger,
+            IMapper mapper)
         {
             _tagService = tagService;
             _logger = logger;
+            _mapper = mapper;
         }
 
         public IActionResult AllTags()
@@ -22,7 +29,7 @@ namespace MVC.Areas.Admin.Controllers
             try
             {
                 var allTags = _tagService.GetAll();
-                return View(allTags);
+                return View(_mapper.Map<ICollection<TagVM>>(allTags));
             }
             catch (Exception ex)
             {
@@ -38,13 +45,13 @@ namespace MVC.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult CreateTag(TagDto newTag)
+        public IActionResult CreateTag(TagVM newTag)
         {
-            if(!ModelState.IsValid) return View(newTag);
-
             try
             {
-                _tagService.Create(newTag);
+                if (!ModelState.IsValid) return View(newTag);
+
+                _tagService.Create(_mapper.Map<TagDto>(newTag));
 
                 return RedirectToAction("AllTags");
             }
@@ -57,15 +64,15 @@ namespace MVC.Areas.Admin.Controllers
 
         public IActionResult EditTag(int id)
         {
-            if(id == 0) return NotFound();
-
             try
             {
+                if (id == 0) return NotFound();
+
                 var tagForEdit = _tagService.Get(id);
 
                 if (tagForEdit == null) return NotFound();
 
-                return View(tagForEdit);
+                return View(_mapper.Map<TagVM>(tagForEdit));
             }
             catch (Exception ex)
             {
@@ -76,15 +83,15 @@ namespace MVC.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult EditTag(TagDto tag)
+        public IActionResult EditTag(TagVM tag)
         {
-            if(!ModelState.IsValid) return View(tag);
-
             try
             {
+                if (!ModelState.IsValid) return View(tag);
+
                 int id = tag.Id ?? 0;
 
-                _tagService.Update(id, tag);
+                _tagService.Update(id, _mapper.Map<TagDto>(tag));
 
                 return RedirectToAction("AllTags");
             }
@@ -98,10 +105,10 @@ namespace MVC.Areas.Admin.Controllers
         [HttpDelete]
         public IActionResult DeleteTag(int id)
         {
-            if (id == 0) return NotFound();
-
             try
             {
+                if (id == 0) return NotFound();
+
                 var deletedTag = _tagService.Delete(id);
 
                 if (deletedTag == null)

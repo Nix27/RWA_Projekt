@@ -15,6 +15,8 @@ namespace MVC.Mapping
             CreateMap<CountryVM, CountryDto>();
             CreateMap<GenreDto, GenreVM>();
             CreateMap<GenreVM, GenreDto>();
+            CreateMap<TagDto, TagVM>();
+            CreateMap<TagVM, TagDto>();
         }
     }
 }

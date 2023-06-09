@@ -4,6 +4,8 @@
     var page = (int)ViewData["page"];
     var size = (int)ViewData["size"];
     var pages = (int)ViewData["pages"] - 1;
+
+    ViewData["action"] = "AllVideos";
 }
 
 <input id="hiddenData" data-pages="@pages" data-size="@size" data-url="VideoTableBodyPartial" data-keyfilterby="videoFilterBy" data-keyfilter="videoFilter" data-keypage="videoPage" hidden />
@@ -46,23 +48,11 @@
                 <th></th>
             </tr>
         </thead>
-        <tbody id="table-body"></tbody>
+        <tbody id="content"></tbody>
         <tfoot>
             <tr>
                 <td colspan="8">
-                    <div class="d-flex justify-content-end">
-                        <a asp-action="AllVideos" asp-route-page="0" asp-route-size="@size" data-page="0" class="first-btn btn btn-primary mx-2">First</a>
-                        <a asp-action="AllVideos" asp-route-page="@(page)" asp-route-size="@size" data-page="0" class="previous-btn btn btn-primary mx-2"><</a>
-
-                        @for (int i = 0; i <= pages; i++)
-                        {
-                            var btnClass = page == i ? "btn-dark" : "btn-light";
-                            <a asp-action="AllVideos" asp-route-page="@i" asp-route-size="@size" data-page="@i" class="pager-btn btn @btnClass">@(i + 1)</a>
-                        }
-
-                        <a asp-action="AllVideos" asp-route-page="@(page)" asp-route-size="@size" data-page="1" class="next-btn btn btn-primary mx-2">></a>
-                        <a asp-action="AllVideos" asp-route-page="@pages" asp-route-size="@size" data-page="@pages" class="last-btn btn btn-primary mx-2">Last</a>
-                    </div>
+                    @await Component.InvokeAsync("Pagination");
                 </td>
             </tr>
         </tfoot>
@@ -71,6 +61,6 @@
 
 @section Scripts{
     <script src="~/js/deleteWarning.js"></script>
-    <script src="~/js/pagination.js"></script>
-    <script src="~/js/filtering.js"></script>
+    <script src="~/js/pagination.js" asp-append-version="true"></script>
+    <script src="~/js/filtering.js" asp-append-version="true"></script>
 }

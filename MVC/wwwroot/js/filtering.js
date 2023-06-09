@@ -8,12 +8,12 @@ let loadedFilter = localStorage.getItem(filterKey);
 
 $(() => {
     if (loadedPage !== null) {
-        getData(loadedPage, size, url, loadedFilterBy, loadedFilter);
+        getFilteredData(loadedPage, size, url, loadedFilterBy, loadedFilter);
 
         $('#filterBy').val(loadedFilterBy);
         $('#filter').val(loadedFilter);
     } else {
-        getData(0, size, url, loadedFilterBy, loadedFilter);
+        getFilteredData(0, size, url, loadedFilterBy, loadedFilter);
     }
 });
 
@@ -23,7 +23,7 @@ $('#filter').on('keyup', function () {
     let filter = $('#filter').val();
 
     if (filterBy !== 'none') {
-        getData(page, size, url, filterBy, filter);
+        getFilteredData(page, size, url, filterBy, filter);
 
         localStorage.setItem(pageKey, page);
         localStorage.setItem(filterByKey, filterBy);
@@ -41,11 +41,11 @@ $('#filterBy').on('change', function () {
         let page = $('.pager-btn.btn-dark').data('page');
         let filterBy = $('#filterBy').val();
         let filter = $('#filter').val();
-        getData(page, size, url, filterBy, filter);
+        getFilteredData(page, size, url, filterBy, filter);
     }
 });
 
-function getData(page, size, url, filterBy, filter) {
+function getFilteredData(page, size, url, filterBy, filter) {
     let ajaxData = {
         page: page,
         size: size,
@@ -58,7 +58,7 @@ function getData(page, size, url, filterBy, filter) {
         url: url,
         data: ajaxData,
         success: function (data) {
-            $('#table-body').html(data);
+            $('#content').html(data);
 
             $('.pager-btn').removeClass('btn-dark');
             $('.pager-btn').addClass('btn-light');
