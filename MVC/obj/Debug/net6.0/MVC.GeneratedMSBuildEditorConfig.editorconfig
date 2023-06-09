@@ -72,6 +72,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcVXNlclxFZGl0VXNlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Nix/Documents/RWA/Nikola_Zečić_Projekt/MVC/Areas/Admin/Views/User/_UserTableBodyPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcVXNlclxfVXNlclRhYmxlQm9keVBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Nix/Documents/RWA/Nikola_Zečić_Projekt/MVC/Areas/Admin/Views/Video/AllVideos.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcVmlkZW9cQWxsVmlkZW9zLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -102,6 +106,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Nix/Documents/RWA/Nikola_Zečić_Projekt/MVC/Areas/Public/Views/Home/VideoDetails.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHVibGljXFZpZXdzXEhvbWVcVmlkZW9EZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Nix/Documents/RWA/Nikola_Zečić_Projekt/MVC/Areas/Public/Views/Home/_HomeVideosPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHVibGljXFZpZXdzXEhvbWVcX0hvbWVWaWRlb3NQYXJ0aWFsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Nix/Documents/RWA/Nikola_Zečić_Projekt/MVC/Areas/Public/Views/PublicUser/ChangePassword.cshtml]

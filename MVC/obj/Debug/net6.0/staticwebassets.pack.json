@@ -25,6 +25,10 @@
       "PackagePath": "staticwebassets\\js\\deleteWarning.js"
     },
     {
+      "Id": "C:\\Users\\Nix\\Documents\\RWA\\Nikola_Zečić_Projekt\\MVC\\wwwroot\\js\\filtering.js",
+      "PackagePath": "staticwebassets\\js\\filtering.js"
+    },
+    {
       "Id": "C:\\Users\\Nix\\Documents\\RWA\\Nikola_Zečić_Projekt\\MVC\\wwwroot\\js\\pagination.js",
       "PackagePath": "staticwebassets\\js\\pagination.js"
     },

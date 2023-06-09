@@ -139,17 +139,18 @@ namespace BL.Services
         {
             filter = filter?.ToLower();
 
-            if(String.Compare(filterBy, "name", true) == 0)
+            if(filter != null)
             {
-                if (filter != null)
+                if (String.Compare(filterBy, "name", true) == 0)
+                {
                     videos = videos.Where(v => v.Name.ToLower().Contains(filter));
-            }
-            else if(String.Compare(filterBy, "genre", true) == 0)
-            {
-                if (filter != null)
+                }
+                else if (String.Compare(filterBy, "genre", true) == 0)
+                {
                     videos = videos.Where(v => v.Genre.ToLower().Contains(filter));
+                }
             }
-
+            
             return videos;
         }
 

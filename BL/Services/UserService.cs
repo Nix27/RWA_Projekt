@@ -229,5 +229,43 @@ namespace BL.Services
 
             return UserMapping.MapToDto(userForUpdate);
         }
+
+        public IEnumerable<UserDto> GetPagedUsers(int page, int size)
+        {
+            var allUsers = _unitOfWork.UserRepo.GetAll(u => !u.IsDeleted, includeProperties: "Country");
+
+            var pagedUsers = allUsers.Skip(page * size).Take(size);
+
+            return UserMapping.MapToDto(pagedUsers);
+        }
+
+        public IEnumerable<UserDto> GetFilteredUsers(IEnumerable<UserDto> users, string? filterBy, string? filter)
+        {
+            filter = filter?.ToLower();
+
+            if(filter != null)
+            {
+                if (String.Compare(filterBy, "firstname", true) == 0)
+                {
+                    users = users.Where(u => u.FirstName.ToLower().Contains(filter));
+                }
+                else if (String.Compare(filterBy, "lastname", true) == 0)
+                {
+                    users = users.Where(u => u.LastName.ToLower().Contains(filter));
+                }
+                else if (String.Compare(filterBy, "username", true) == 0)
+                {
+                    users = users.Where(u => u.UserName.ToLower().Contains(filter));
+                }
+                else if (String.Compare(filterBy, "country", true) == 0)
+                {
+                    users = users.Where(u => u.Country.ToLower().Contains(filter));
+                }
+            }
+            
+            return users;
+        }
+
+        public int GetNumberOfUsers() => _unitOfWork.UserRepo.GetAll().Count();
     }
 }

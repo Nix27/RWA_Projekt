@@ -1,46 +1,74 @@
 ﻿@model IEnumerable<VideoVM>
+
 @{
-    ViewData["Title"] = "Home Page";
+    var page = (int)ViewData["page"];
+    var size = (int)ViewData["size"];
+    var pages = (int)ViewData["pages"] - 1;
 }
 
 <h2 class="text-primary">Videos</h2>
 
-<div class="row pb-2">
-    @foreach(var videoVm in Model)
-    {
-        <div class="col-lg-3 col-md-6 col-sm-12">
-            <div class="row p-2">
-                <div class="col-12 p-1">
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <a asp-area="Public" asp-controller="Home" asp-action="VideoDetails" asp-route-id="@videoVm.Video.Id" style="text-decoration: none">
-                            <div class="card home-card border-1 p-2 rounded">
-                                <div class="home-card-image">
-                                    <img src="@videoVm.ImageURL" class="card-img-top rounded" />
-                                </div>
-                                <div class="card-body p-2">
-                                    <p class="card-title h5 p-2">@videoVm.Video.Name</p>
-                                    <p class="p-2">@videoVm.Video.Description</p>
-                                </div>
-                            </div>
-                        </a>
-                    }
-                    else
-                    {
-                        <a asp-area="Public" asp-controller="PublicUser" asp-action="LogIn" style="text-decoration: none">
-                            <div class="card home-card border-1 p-2 rounded">
-                                <div class="home-card-image">
-                                    <img src="@videoVm.ImageURL" class="card-img-top rounded" />
-                                </div>
-                                <div class="card-body p-2">
-                                    <p class="card-title h5 p-2">@videoVm.Video.Name</p>
-                                    <p class="p-2">@videoVm.Video.Description</p>
-                                </div>
-                            </div>
-                        </a>
-                    }
-                </div>
-            </div>
-        </div>
-    }
+<div class="d-flex justify-content-end">
+    <div>
+        <input type="text" id="filter" class="form-control border border-1 border-dark h-75" />
+    </div>
 </div>
+
+<div id="videos" class="row pb-2">
+    <partial name="_HomeVideosPartial" />
+</div>
+
+<div class="d-flex justify-content-end">
+    <a asp-action="Index" asp-route-page="0" asp-route-size="@size" data-page="0" class="first-btn btn btn-primary mx-2">First</a>
+    <a asp-action="Index" asp-route-page="@(page)" asp-route-size="@size" data-page="0" class="previous-btn btn btn-primary mx-2"><</a>
+
+    @for (int i = 0; i <= pages; i++)
+    {
+        var btnClass = page == i ? "btn-dark" : "btn-light";
+        <a asp-action="Index" asp-route-page="@i" asp-route-size="@size" data-page="@i" class="pager-btn btn @btnClass">@(i + 1)</a>
+    }
+
+    <a asp-action="Index" asp-route-page="@(page)" asp-route-size="@size" data-page="1" class="next-btn btn btn-primary mx-2">></a>
+    <a asp-action="Index" asp-route-page="@pages" asp-route-size="@size" data-page="@pages" class="last-btn btn btn-primary mx-2">Last</a>
+</div>
+
+@section Scripts{
+    <script src="~/js/pagination.js"></script>
+
+    <script>
+        $('#filter').on('keyup', function () {
+            let page = $('.pager-btn.btn-dark').data('page');
+            let filter = $('#filter').val();
+
+            getData(page, size, 'HomeVideoTableBodyPartial', 'name', filter);
+        });
+
+        function getData(page, size, url, filterBy, filter) {
+            let ajaxData = {
+                page: page,
+                size: size,
+                filterBy: filterBy,
+                filter: filter
+            };
+
+            $.ajax({
+                type: 'GET',
+                url: url,
+                data: ajaxData,
+                success: function (data) {
+                    $('#videos').empty();
+                    $('#videos').append(data.toString());
+
+                    $('.pager-btn').removeClass('btn-dark');
+                    $('.pager-btn').addClass('btn-light');
+
+                    $('.pager-btn[data-page=' + page + ']').removeClass('btn-light');
+                    $('.pager-btn[data-page=' + page + ']').addClass('btn-dark');
+                },
+                error: function (data) {
+                    console.log('error', data);
+                }
+            });
+        }
+    </script>
+}

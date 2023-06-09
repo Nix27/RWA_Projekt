@@ -19,12 +19,60 @@ namespace MVC.Areas.Admin.Controllers
             _logger = logger;
         }
 
-        public IActionResult AllUsers()
+        public IActionResult AllUsers(int page, int size, string? filterBy, string? filter)
         {
             try
             {
-                var allUsers = _userService.GetAll();
-                return View(allUsers);
+                if (size == 0)
+                    size = 5;
+
+                var pagedUsers = _userService.GetPagedUsers(page, size);
+                ViewData["page"] = page;
+                ViewData["size"] = size;
+                ViewData["pages"] = (int)Math.Ceiling((double)_userService.GetNumberOfUsers() / size);
+
+                if (filterBy != "none" && filter != null)
+                {
+                    pagedUsers = _userService.GetFilteredUsers(pagedUsers, filterBy, filter);
+                }
+
+                var pagedUsersVM = pagedUsers.Select(u => new UserVM
+                {
+                    User = u
+                });
+
+                return View(pagedUsersVM);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Unable to get users");
+                return RedirectToAction("Error", "Home", new { area = "Public" });
+            }
+        }
+
+        public IActionResult UserTableBodyPartial(int page, int size, string? filterBy, string? filter)
+        {
+            try
+            {
+                if (size == 0)
+                    size = 5;
+
+                var pagedUsers = _userService.GetPagedUsers(page, size);
+                ViewData["page"] = page;
+                ViewData["size"] = size;
+                ViewData["pages"] = (int)Math.Ceiling((double)_userService.GetNumberOfUsers() / size);
+
+                if (filterBy != "none" && filter != null)
+                {
+                    pagedUsers = _userService.GetFilteredUsers(pagedUsers, filterBy, filter);
+                }
+
+                var pagedUsersVM = pagedUsers.Select(u => new UserVM
+                {
+                    User = u
+                });
+
+                return PartialView("_UserTableBodyPartial", pagedUsersVM);
             }
             catch (Exception ex)
             {

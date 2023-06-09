@@ -13,6 +13,9 @@ namespace BL.Services
     {
         ICollection<UserDto> GetAll();
         UserDto? Get(int id);
+        IEnumerable<UserDto> GetPagedUsers(int page, int size);
+        IEnumerable<UserDto> GetFilteredUsers(IEnumerable<UserDto> users, string? filterBy, string? filter);
+        int GetNumberOfUsers();
         UserDto Create(UserRegisterRequest user);
         UserDto? Update(int id, UserDto user);
         UserDto? Delete(int id);

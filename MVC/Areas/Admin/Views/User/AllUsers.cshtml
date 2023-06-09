@@ -1,4 +1,12 @@
-﻿@model ICollection<UserDto>
+﻿@model IEnumerable<UserVM>
+
+@{
+    var page = (int)ViewData["page"];
+    var size = (int)ViewData["size"];
+    var pages = (int)ViewData["pages"] - 1;
+}
+
+<input id="hiddenData" data-pages="@pages" data-size="@size" data-url="UserTableBodyPartial" data-keyfilterby="userFilterBy" data-keyfilter="userFilter" data-keypage="userPage" hidden />
 
 <div class="container p-2">
     <div class="row mt-3">
@@ -10,6 +18,22 @@
         </div>
     </div>
     <br />
+
+    <div class="d-flex justify-content-between">
+        <div class="d-flex">
+            <label for="filterBy" class="mx-3 w-100 pt-1">Filter by:</label>
+            <select id="filterBy" class="form-select border border-1 border-dark pt-1 h-75">
+                <option value="none" selected>None</option>
+                <option value="firstname">First name</option>
+                <option value="lastname">Last name</option>
+                <option value="username">Username</option>
+                <option value="country">Country</option>
+            </select>
+        </div>
+        <div>
+            <input type="text" id="filter" class="form-control border border-1 border-dark h-75" />
+        </div>
+    </div>
 
     <table id="tblUsers" class="table">
         <thead>
@@ -23,28 +47,31 @@
                 <th></th>
             </tr>
         </thead>
-        <tbody>
-            @foreach(var user in Model)
-            {
-                <tr>
-                    <td>@user.UserName</td>
-                    <td>@user.FirstName</td>
-                    <td>@user.LastName</td>
-                    <td>@user.Email</td>
-                    <td>@user.Phone</td>
-                    <td>@user.Country</td>
-                    <td>
-                        <div class="w-75 btn-group" role="group">
-                            <a asp-area="Admin" asp-controller="User" asp-action="EditUser" asp-route-id="@user.Id" class="btn btn-success mx-2"><i class="bi bi-pencil-square"></i></a>
-                            <a onclick="DeleteWarning('/Admin/User/DeleteUser/'+@user.Id, ' #tblUsers')" class="btn btn-danger mx-2"><i class="bi bi-trash3"></i></a>
-                        </div>
-                    </td>
-                </tr>
-            }
-        </tbody>
+        <tbody id="table-body"></tbody>
+        <tfoot>
+            <tr>
+                <td colspan="7">
+                    <div class="d-flex justify-content-end">
+                        <a asp-action="AllUsers" asp-route-page="0" asp-route-size="@size" data-page="0" class="first-btn btn btn-primary mx-2">First</a>
+                        <a asp-action="AllUsers" asp-route-page="@(page)" asp-route-size="@size" data-page="0" class="previous-btn btn btn-primary mx-2"><</a>
+
+                        @for (int i = 0; i <= pages; i++)
+                        {
+                            var btnClass = page == i ? "btn-dark" : "btn-light";
+                            <a asp-action="AllUsers" asp-route-page="@i" asp-route-size="@size" data-page="@i" class="pager-btn btn @btnClass">@(i + 1)</a>
+                        }
+
+                        <a asp-action="AllUsers" asp-route-page="@(page)" asp-route-size="@size" data-page="1" class="next-btn btn btn-primary mx-2">></a>
+                        <a asp-action="AllUsers" asp-route-page="@pages" asp-route-size="@size" data-page="@pages" class="last-btn btn btn-primary mx-2">Last</a>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
     </table>
 </div>
 
 @section Scripts{
     <script src="~/js/deleteWarning.js"></script>
+    <script src="~/js/pagination.js"></script>
+    <script src="~/js/filtering.js"></script>
 }

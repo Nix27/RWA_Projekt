@@ -26,19 +26,62 @@ namespace MVC.Areas.Public.Controllers
             _genreService = genreService;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int page, int size, string? filterBy, string? filter)
         {
             try
             {
-                var allVideos = _videoService.GetAll();
+                if (size == 0)
+                    size = 1;
 
-                var videosVm = allVideos.Select(v => new VideoVM
+                var pagedVideos = _videoService.GetPagedVideos(page, size);
+                ViewData["page"] = page;
+                ViewData["size"] = size;
+                ViewData["pages"] = (int)Math.Ceiling((double)_videoService.GetNumberOfVideos() / size);
+
+                if (filter != null && filterBy != "none")
+                {
+                    pagedVideos = _videoService.GetFilteredVideos(pagedVideos, filterBy, filter);
+                }
+
+                var videosVm = pagedVideos.Select(v => new VideoVM
                 {
                     Video = v,
                     ImageURL = Url.Action("GetImage", "Video", new { area = "Admin", id = v.ImageId })
                 });
 
                 return View(videosVm);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Unable to get videos");
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
+        public IActionResult HomeVideoTableBodyPartial(int page, int size, string? filterBy, string? filter)
+        {
+            try
+            {
+                if (size == 0)
+                    size = 1;
+
+                var pagedVideos = _videoService.GetPagedVideos(page, size);
+                ViewData["page"] = page;
+                ViewData["size"] = size;
+                ViewData["pages"] = (int)Math.Ceiling((double)_videoService.GetNumberOfVideos() / size);
+
+                if (filter != null && filterBy != "none")
+                {
+                    pagedVideos = _videoService.GetFilteredVideos(pagedVideos, filterBy, filter);
+                }
+
+                var videosVm = pagedVideos.Select(v => new VideoVM
+                {
+                    Video = v,
+                    ImageURL = Url.Action("GetImage", "Video", new { area = "Admin", id = v.ImageId })
+                });
+
+                return PartialView("_HomeVideosPartial", videosVm);
             }
             catch (Exception ex)
             {
