@@ -43,7 +43,7 @@
             </div>
             <div class="mb-3 col-6">
                 <label asp-for="UserForRegister.CountryId"></label>
-                <select asp-for="UserForRegister.CountryId" asp-items="Model.Countries" class="form-control border border-1 border-dark">
+                <select asp-for="UserForRegister.CountryId" asp-items="Model.Countries" class="form-select border border-1 border-dark">
                     <option disabled selected>--Select country--</option>
                 </select>
                 <span asp-validation-for="UserForRegister.CountryId" class="text-danger"></span>

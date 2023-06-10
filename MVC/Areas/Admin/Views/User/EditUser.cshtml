@@ -38,7 +38,7 @@
             </div>
             <div class="mb-3 col-6">
                 <label asp-for="User.CountryId"></label>
-                <select asp-for="User.CountryId" asp-items="Model.Countries" class="form-control border border-1 border-dark">
+                <select asp-for="User.CountryId" asp-items="Model.Countries" class="form-select border border-1 border-dark">
                     <option disabled selected>--Select country--</option>
                 </select>
                 <span asp-validation-for="User.CountryId" class="text-danger"></span>

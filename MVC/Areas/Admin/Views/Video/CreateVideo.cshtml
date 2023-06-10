@@ -35,7 +35,7 @@
                 </div>
                 <div class="mb-3 col-6">
                     <label asp-for="Video.GenreId"></label>
-                    <select asp-for="Video.GenreId" asp-items="Model.Genres" class="form-control border border-1 border-dark">
+                    <select asp-for="Video.GenreId" asp-items="Model.Genres" class="form-select border border-1 border-dark">
                         <option disabled selected>--Select Genre--</option>
                     </select>
                     <span asp-validation-for="Video.GenreId" class="text-danger"></span>
@@ -46,7 +46,7 @@
                 </div>
                 <div class="mb-3 col-6">
                     <label asp-for="Video.Tags"></label>
-                    <select asp-for="Video.Tags" asp-items="Model.Tags" class="form-control border border-1 border-dark"></select>
+                    <select asp-for="Video.Tags" asp-items="Model.Tags" class="form-select border border-1 border-dark"></select>
                     <span asp-validation-for="Video.Tags" class="text-danger"></span>
                 </div>
             </div>

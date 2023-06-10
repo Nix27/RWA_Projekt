@@ -34,7 +34,8 @@
                 <option value="country">Country</option>
             </select>
         </div>
-        <div>
+        <div class="d-flex">
+            <label for="filter" class="mx-3 w-25 pt-1">Search:</label>
             <input type="text" id="filter" class="form-control border border-1 border-dark h-75" />
         </div>
     </div>
@@ -51,11 +52,13 @@
                 <th></th>
             </tr>
         </thead>
-        <tbody id="content"></tbody>
+        <tbody id="content">
+            <partial name="_UserTableBodyPartial" />
+        </tbody>
         <tfoot>
             <tr>
                 <td colspan="7">
-                    @await Component.InvokeAsync("Pagination");
+                    @await Component.InvokeAsync("Pagination")
                 </td>
             </tr>
         </tfoot>
