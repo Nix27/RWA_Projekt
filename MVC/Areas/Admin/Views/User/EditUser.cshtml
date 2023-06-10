@@ -1,5 +1,9 @@
 ﻿@model UserVM
 
+@{
+    ViewData["Title"] = "Edit user";
+}
+
 <form method="post">
     <input asp-for="User.Id" hidden />
     <div class="border-2 mt-4">
@@ -40,8 +44,8 @@
                 <span asp-validation-for="User.CountryId" class="text-danger"></span>
             </div>
         </div>
-        <button type="submit" class="btn btn-dark" style="width: 150px">Save</button>
-        <a asp-area="Admin" asp-controller="User" asp-action="AllUsers" class="btn btn-light" style="width: 150px">Back</a>
+        <button type="submit" class="btn btn-dark btn-custom">Save</button>
+        <a asp-area="Admin" asp-controller="User" asp-action="AllUsers" class="btn btn-light btn-custom">Back</a>
     </div>
 </form>
 

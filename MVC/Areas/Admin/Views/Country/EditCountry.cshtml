@@ -1,5 +1,9 @@
 ﻿@model CountryVM
 
+@{
+    ViewData["Title"] = "Edit country";
+}
+
 <form method="post">
     <input asp-for="Id" hidden />
     <div class="border-2 mt-4">
@@ -19,8 +23,8 @@
                 <span asp-validation-for="Code" class="text-danger"></span>
             </div>
         </div>
-        <button type="submit" class="btn btn-dark" style="width: 150px">Update</button>
-        <a asp-area="Admin" asp-controller="Country" asp-action="AllCountries" class="btn btn-light" style="width: 150px">Back</a>
+        <button type="submit" class="btn btn-dark btn-custom">Update</button>
+        <a asp-area="Admin" asp-controller="Country" asp-action="AllCountries" class="btn btn-light btn-custom">Back</a>
     </div>
 </form>
 

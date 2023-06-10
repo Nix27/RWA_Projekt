@@ -1,6 +1,8 @@
 ﻿@model IEnumerable<UserVM>
 
 @{
+    ViewData["Title"] = "All users";
+
     var page = (int)ViewData["page"];
     var size = (int)ViewData["size"];
     var pages = (int)ViewData["pages"] - 1;

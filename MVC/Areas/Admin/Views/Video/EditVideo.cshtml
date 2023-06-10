@@ -1,5 +1,9 @@
 ﻿@model VideoVM
 
+@{
+    ViewData["Title"] = "Edit video";
+}
+
 <form method="post" enctype="multipart/form-data">
     <input asp-for="Video.Id" hidden />
     <input asp-for="Video.ImageId" hidden />
@@ -49,8 +53,8 @@
                 </div>
             </div>
         </div>
-        <button type="submit" class="btn btn-dark" style="width: 150px">Save</button>
-        <a asp-area="Admin" asp-controller="Video" asp-action="AllVideos" class="btn btn-light" style="width: 150px">Back</a>
+        <button type="submit" class="btn btn-dark btn-custom">Save</button>
+        <a asp-area="Admin" asp-controller="Video" asp-action="AllVideos" class="btn btn-light btn-custom">Back</a>
     </div>
 </form>
 

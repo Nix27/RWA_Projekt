@@ -1,5 +1,9 @@
 ﻿@model VideoVM
 
+@{
+    ViewData["Title"] = Model.Video.Name;
+}
+
 <div class="container p-3">
     <h2 class="text-primary">@Model.Video.Name</h2>
     <div class="mb-4">

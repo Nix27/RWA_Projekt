@@ -1,5 +1,9 @@
 ﻿@model TagVM
 
+@{
+    ViewData["Title"] = "Create tag";
+}
+
 <form method="post">
     <div class="border-2 mt-4">
         <div class="row mb-2">
@@ -13,8 +17,8 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
         </div>
-        <button type="submit" class="btn btn-dark" style="width: 150px">Create</button>
-        <a asp-area="Admin" asp-controller="Tag" asp-action="AllTags" class="btn btn-light" style="width: 150px">Back</a>
+        <button type="submit" class="btn btn-dark btn-custom">Create</button>
+        <a asp-area="Admin" asp-controller="Tag" asp-action="AllTags" class="btn btn-light btn-custom">Back</a>
     </div>
 </form>
 

@@ -17,6 +17,10 @@ body {
   margin-bottom: 60px;
 }
 
+.btn-custom{
+    width: 150px;
+}
+
 .home-card {
     transition: .3s ease;
     height: 350px;
@@ -50,7 +54,3 @@ body {
     .btn-logout:hover{
         color: white;
     }
-
-.btn-submit {
-    width: 150px;
-}

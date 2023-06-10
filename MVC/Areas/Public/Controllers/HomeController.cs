@@ -54,7 +54,7 @@ namespace MVC.Areas.Public.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Unable to get videos");
-                return RedirectToAction("Error", "Home");
+                return RedirectToAction("Error");
             }
         }
 
@@ -86,10 +86,11 @@ namespace MVC.Areas.Public.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Unable to get videos");
-                return RedirectToAction("Error", "Home");
+                return RedirectToAction("Error");
             }
         }
 
+        [Authorize(Roles = "Admin,User")]
         public IActionResult VideoDetails(int id)
         {
             if (id == 0) return NotFound();
@@ -110,14 +111,14 @@ namespace MVC.Areas.Public.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Unable to get requested video");
-                return RedirectToAction("Error", "Home");
+                return RedirectToAction("Error");
             }
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View();
         }
     }
 }

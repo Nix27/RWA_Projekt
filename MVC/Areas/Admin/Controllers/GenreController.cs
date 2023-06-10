@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BL.DTO;
 using BL.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MVC.Models;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Collections.Generic;
 namespace MVC.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class GenreController : Controller
     {
         private readonly IGenreService _genreService;

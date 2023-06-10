@@ -1,5 +1,9 @@
 ﻿@model UserVM
 
+@{
+    ViewData["Title"] = "My profile";
+}
+
 <div class="container p-2">
     <div class="mt-3 mb-3">
         <h2 class="text-primary">My Profile</h2>
@@ -33,5 +37,5 @@
         </div>
     </div>
     <a asp-area="Public" asp-controller="PublicUser" asp-action="ChangePassword" asp-route-email="@Model.User.Email" class="btn btn-primary mt-2" style="width: 300px">Change password</a>
-    <a asp-area="Public" asp-controller="Home" asp-action="Index" class="btn btn-light mt-2" style="width: 150px">Back</a>
+    <a asp-area="Public" asp-controller="Home" asp-action="Index" class="btn btn-light mt-2" style="width: 300px">Back</a>
 </div>

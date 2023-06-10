@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BL.DTO;
 using BL.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MVC.Models;
 using System.Security.Cryptography.Xml;
@@ -8,6 +9,7 @@ using System.Security.Cryptography.Xml;
 namespace MVC.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class TagController : Controller
     {
         private readonly ITagService _tagService;

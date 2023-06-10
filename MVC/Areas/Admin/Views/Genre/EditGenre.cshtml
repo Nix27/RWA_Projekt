@@ -1,5 +1,9 @@
 ﻿@model GenreVM
 
+@{
+    ViewData["Title"] = "Edit genre";
+}
+
 <form method="post">
     <input id="genreId" asp-for="Id" hidden />
     <div class="border-2 mt-4">
@@ -18,8 +22,8 @@
                 <input asp-for="Description" id="description" class="form-control border border-1 border-dark" />
             </div>
         </div>
-        <button type="submit" class="btn btn-dark" style="width: 150px">Update</button>
-        <a asp-area="Admin" asp-controller="Genre" asp-action="AllGenres" class="btn btn-light" style="width: 150px">Back</a>
+        <button type="submit" class="btn btn-dark btn-custom">Update</button>
+        <a asp-area="Admin" asp-controller="Genre" asp-action="AllGenres" class="btn btn-light btn-custom">Back</a>
     </div>
 </form>
 

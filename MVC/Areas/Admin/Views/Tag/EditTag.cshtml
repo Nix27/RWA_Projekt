@@ -1,5 +1,9 @@
 ﻿@model TagVM
 
+@{
+    ViewData["Title"] = "Edit tag";
+}
+
 <form method="post">
     <input asp-for="Id" hidden />
     <div class="border-2 mt-4">
@@ -14,8 +18,8 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
         </div>
-        <button type="submit" class="btn btn-dark" style="width: 150px">Save</button>
-        <a asp-area="Admin" asp-controller="Tag" asp-action="AllTags" class="btn btn-light" style="width: 150px">Back</a>
+        <button type="submit" class="btn btn-dark btn-custom">Save</button>
+        <a asp-area="Admin" asp-controller="Tag" asp-action="AllTags" class="btn btn-light btn-custom">Back</a>
     </div>
 </form>
 

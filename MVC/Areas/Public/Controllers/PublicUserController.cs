@@ -3,15 +3,18 @@ using BL.Models;
 using BL.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using MVC.Models;
+using NuGet.Protocol.Plugins;
 using System.Security.Claims;
 
 namespace MVC.Areas.Public.Controllers
 {
     [Area("Public")]
+    [Authorize(Roles = "Admin,User")]
     public class PublicUserController : Controller
     {
         private readonly IUserService _userService;
@@ -31,6 +34,7 @@ namespace MVC.Areas.Public.Controllers
             _mapper = mapper;
         }
 
+        [AllowAnonymous]
         public IActionResult Registration()
         {
             try
@@ -54,6 +58,7 @@ namespace MVC.Areas.Public.Controllers
             }
         }
 
+        [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Registration(UserRegisterVM userRegisterVM)
@@ -65,6 +70,11 @@ namespace MVC.Areas.Public.Controllers
                 _userService.Create(userRegisterVM.UserForRegister);
                 return RedirectToAction("Index", "Home");
             }
+            catch(InvalidOperationException ex)
+            {
+                ModelState.AddModelError("AlreadyExist", "User with entered e-mail already exists");
+                return View(userRegisterVM);
+            }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Unable to register user");
@@ -72,11 +82,13 @@ namespace MVC.Areas.Public.Controllers
             }
         }
 
+        [AllowAnonymous]
         public IActionResult LogIn()
         {
             return View();
         }
 
+        [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult LogIn(LoginRequestVM loginRequest)

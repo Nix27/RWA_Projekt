@@ -36,7 +36,7 @@ namespace BL.Services
             var existingUser = _unitOfWork.UserRepo.GetFirstOrDefault(u => u.Username == user.UserName);
 
             if (existingUser != null)
-                throw new Exception("User already exists");
+                throw new InvalidOperationException("User already exists");
 
             byte[] salt = RandomNumberGenerator.GetBytes(128 / 8);
             string b64Salt = Convert.ToBase64String(salt);
