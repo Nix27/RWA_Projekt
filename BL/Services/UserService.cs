@@ -266,6 +266,6 @@ namespace BL.Services
             return users;
         }
 
-        public int GetNumberOfUsers() => _unitOfWork.UserRepo.GetAll().Count();
+        public int GetNumberOfUsers() => _unitOfWork.UserRepo.GetAll(u => u.IsConfirmed && !u.IsDeleted).Count();
     }
 }

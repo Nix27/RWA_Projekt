@@ -1,20 +1,20 @@
 ﻿@{
     var page = (int)ViewData["page"];
     var size = (int)ViewData["size"];
-    var pages = (int)ViewData["pages"] - 1;
-    var action = (string)ViewData["actt"]; 
+    var pages = (int)ViewData["pages"];
+    var action = (string)ViewData["action"]; 
 }
 
 <div class="d-flex justify-content-end">
-    <a asp-action="action" asp-route-page="0" asp-route-size="@size" data-page="0" class="first-btn btn btn-primary mx-2">First</a>
-    <a asp-action="action" asp-route-page="@(page)" asp-route-size="@size" data-page="0" class="previous-btn btn btn-primary mx-2"><</a>
+    <a asp-action="@action" asp-route-page="0" asp-route-size="@size" data-page="0" class="first-btn btn btn-primary mx-2">First</a>
+    <a asp-action="@action" asp-route-page="@(page)" asp-route-size="@size" data-page="0" class="previous-btn btn btn-primary mx-2"><</a>
 
-    @for (int i = 0; i <= pages; i++)
+    @for (int i = 1; i <= pages; i++)
     {
-        var btnClass = page == i ? "btn-dark" : "btn-light";
-        <a asp-action="action" asp-route-page="@i" asp-route-size="@size" data-page="@i" class="pager-btn btn @btnClass">@(i + 1)</a>
+        var btnClass = page == (i - 1) ? "btn-dark" : "btn-light";
+        <a asp-action="@action" asp-route-page="@(i - 1)" asp-route-size="@size" data-page="@(i - 1)" class="pager-btn btn @btnClass">@i</a>
     }
 
-    <a asp-action="action" asp-route-page="@(page)" asp-route-size="@size" data-page="1" class="next-btn btn btn-primary mx-2">></a>
-    <a asp-action="action" asp-route-page="@pages" asp-route-size="@size" data-page="@pages" class="last-btn btn btn-primary mx-2">Last</a>
+    <a asp-action="@action" asp-route-page="@(page)" asp-route-size="@size" data-page="1" class="next-btn btn btn-primary mx-2">></a>
+    <a asp-action="@action" asp-route-page="@pages" asp-route-size="@size" data-page="@pages" class="last-btn btn btn-primary mx-2">Last</a>
 </div>

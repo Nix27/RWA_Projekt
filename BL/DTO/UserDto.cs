@@ -1,4 +1,5 @@
 ﻿using DAL.Models;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,6 +20,8 @@ namespace BL.DTO
         [DisplayName("Country")]
         public int CountryId { get; set; }
         public string? Country { get; set; }
+
+        [ValidateNever]
         public string Role { get; set; }
     }
 }

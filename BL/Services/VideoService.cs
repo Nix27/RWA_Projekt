@@ -121,11 +121,6 @@ namespace BL.Services
             return VideoMapping.MapToDto(videos).ToList();
         }
 
-        public ICollection<Video> GetAllForView()
-        {
-            return _unitOfWork.Video.GetAll(includeProperties: "Genre,Image,VideoTags.Tag").ToList();
-        }
-
         public IEnumerable<VideoDto> GetPagedVideos(int page, int size)
         {
             var allVideos = _unitOfWork.Video.GetAll(includeProperties: "Genre,Image,VideoTags.Tag");

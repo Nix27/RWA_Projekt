@@ -47,7 +47,6 @@ namespace Web_Api.Controllers
             }
         }
 
-        [AllowAnonymous]
         [HttpPost("[action]")]
         public IActionResult RegisterUser([FromBody] UserRegisterRequest user)
         {
@@ -64,7 +63,6 @@ namespace Web_Api.Controllers
         }
 
         [HttpGet("[action]")]
-        [AllowAnonymous]
         public IActionResult ValidateEmail([FromQuery]ValidateEmilRequest request)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -80,7 +78,6 @@ namespace Web_Api.Controllers
             }
         }
 
-        [AllowAnonymous]
         [HttpPost("[action]")]
         public IActionResult LogIn([FromBody] LoginRequest request)
         {

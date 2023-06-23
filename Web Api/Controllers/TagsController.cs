@@ -8,7 +8,6 @@ namespace Web_Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Admin")]
     public class TagsController : ControllerBase
     {
         private readonly ITagService _tagService;

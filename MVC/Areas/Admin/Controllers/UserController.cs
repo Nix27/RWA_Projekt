@@ -62,7 +62,7 @@ namespace MVC.Areas.Admin.Controllers
                 var pagedUsers = _userService.GetPagedUsers(page, size);
                 ViewData["page"] = page;
                 ViewData["size"] = size;
-                ViewData["pages"] = (int)Math.Ceiling((double)_userService.GetNumberOfUsers() / size);
+                ViewData["pages"] = (int)Math.Floor((double)_userService.GetNumberOfUsers() / size);
 
                 if (filterBy != "none" && filter != null)
                 {

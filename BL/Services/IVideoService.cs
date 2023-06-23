@@ -11,7 +11,6 @@ namespace BL.Services
     public interface IVideoService
     {
         ICollection<VideoDto> GetAll();
-        ICollection<Video> GetAllForView();
         IEnumerable<VideoDto> GetPagedVideos(int page, int size);
         IEnumerable<VideoDto> GetFilteredVideos(IEnumerable<VideoDto> videos, string? filterBy, string? filter);
         int GetNumberOfVideos();

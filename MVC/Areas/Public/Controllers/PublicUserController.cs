@@ -68,9 +68,9 @@ namespace MVC.Areas.Public.Controllers
             try
             {
                 _userService.Create(userRegisterVM.UserForRegister);
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("MessageVerification");
             }
-            catch(InvalidOperationException ex)
+            catch(InvalidOperationException)
             {
                 ModelState.AddModelError("AlreadyExist", "User with entered e-mail already exists");
                 return View(userRegisterVM);
@@ -80,6 +80,12 @@ namespace MVC.Areas.Public.Controllers
                 _logger.LogError(ex, "Unable to register user");
                 return RedirectToAction("Error", "Home");
             }
+        }
+
+        [AllowAnonymous]
+        public IActionResult MessageVerification()
+        {
+            return View();
         }
 
         [AllowAnonymous]

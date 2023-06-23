@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Web_Api.Controllers
 {
-    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class VideosController : ControllerBase
     {
         private readonly IVideoService _videoService;
